@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Height;
 import net.garmine.parser.html.attributes.Width;
 
-public class Canvas extends Element {
-	public  height;
-	public  width;
+public class Canvas extends HtmlElement {
+	public int height;
+	public int width;
 
-	public Canvas(Element parent, HtmlAttributeToken[] attrs){
+	public Canvas(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

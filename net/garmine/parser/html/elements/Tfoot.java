@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
 
-public class Tfoot extends Element {
-	public  align;
-	public  char;
-	public  charoff;
-	public  valign;
+public class Tfoot extends HtmlElement {
+	public String align;
+	public char charr;
+	public int charoff;
+	public Valign valign;
 
-	public Tfoot(Element parent, HtmlAttributeToken[] attrs){
+	public Tfoot(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -22,7 +22,7 @@ public class Tfoot extends Element {
 					align = Align.parse(this, v);
 					break;
 				case "char":
-					char = Char.parse(this, v);
+					charr = Char.parse(this, v);
 					break;
 				case "charoff":
 					charoff = Charoff.parse(this, v);

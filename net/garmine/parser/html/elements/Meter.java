@@ -9,16 +9,16 @@ import net.garmine.parser.html.attributes.Min;
 import net.garmine.parser.html.attributes.Optimum;
 import net.garmine.parser.html.attributes.Value;
 
-public class Meter extends Element {
-	public  form;
-	public  high;
-	public  low;
-	public  max;
-	public  min;
-	public  optimum;
-	public  value;
+public class Meter extends HtmlElement {
+	public String form;
+	public float high;
+	public int low;
+	public int max;
+	public int min;
+	public float optimum;
+	public String value;
 
-	public Meter(Element parent, HtmlAttributeToken[] attrs){
+	public Meter(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

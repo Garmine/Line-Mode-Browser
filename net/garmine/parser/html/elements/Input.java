@@ -1,5 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import java.util.regex.Pattern;
+
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Accept;
 import net.garmine.parser.html.attributes.Align;
@@ -21,7 +23,6 @@ import net.garmine.parser.html.attributes.Maxlength;
 import net.garmine.parser.html.attributes.Min;
 import net.garmine.parser.html.attributes.Multiple;
 import net.garmine.parser.html.attributes.Name;
-import net.garmine.parser.html.attributes.Pattern;
 import net.garmine.parser.html.attributes.Placeholder;
 import net.garmine.parser.html.attributes.Readonly;
 import net.garmine.parser.html.attributes.Required;
@@ -32,39 +33,39 @@ import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.attributes.Width;
 
-public class Input extends Element {
-	public  accept;
-	public  align;
-	public  alt;
-	public  autocomplete;
-	public  autofocus;
-	public  checked;
-	public  disabled;
-	public  form;
-	public  formaction;
-	public  formenctype;
-	public  formmethod;
-	public  formnovalidate;
-	public  formtarget;
-	public  height;
-	public  list;
-	public  max;
-	public  maxlength;
-	public  min;
-	public  multiple;
-	public  name;
-	public  pattern;
-	public  placeholder;
-	public  readonly;
-	public  required;
-	public  size;
-	public  src;
-	public  step;
-	public  type;
-	public  value;
-	public  width;
+public class Input extends HtmlElement {
+	public String accept;
+	public String align;
+	public String alt;
+	public boolean autocomplete;
+	public boolean autofocus;
+	public boolean checked;
+	public boolean disabled;
+	public String form;
+	public String formaction;
+	public String formenctype;
+	public Formmethod formmethod;
+	public boolean formnovalidate;
+	public String formtarget;
+	public int height;
+	public String list;
+	public int max;
+	public int maxlength;
+	public int min;
+	public boolean multiple;
+	public String name;
+	public Pattern pattern;
+	public String placeholder;
+	public boolean readonly;
+	public boolean required;
+	public int size;
+	public String src;
+	public int step;
+	public String type;
+	public String value;
+	public int width;
 
-	public Input(Element parent, HtmlAttributeToken[] attrs){
+	public Input(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -131,7 +132,7 @@ public class Input extends Element {
 					name = Name.parse(this, v);
 					break;
 				case "pattern":
-					pattern = Pattern.parse(this, v);
+					pattern = net.garmine.parser.html.attributes.Pattern.parse(this, v);
 					break;
 				case "placeholder":
 					placeholder = Placeholder.parse(this, v);

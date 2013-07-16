@@ -7,28 +7,26 @@ import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Formaction;
 import net.garmine.parser.html.attributes.Formenctype;
 import net.garmine.parser.html.attributes.Formmethod;
-import net.garmine.parser.html.attributes.Post;
 import net.garmine.parser.html.attributes.Formnovalidate;
 import net.garmine.parser.html.attributes.Formtarget;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 
-public class Button extends Element {
-	public  autofocus;
-	public  disabled;
-	public  form;
-	public  formaction;
-	public  formenctype;
-	public  formmethod;
-	public  post;
-	public  formnovalidate;
-	public  formtarget;
-	public  name;
-	public  type;
-	public  value;
+public class Button extends HtmlElement {
+	public boolean autofocus;
+	public boolean disabled;
+	public String form;
+	public String formaction;
+	public String formenctype;
+	public Formmethod formmethod;
+	public boolean formnovalidate;
+	public String formtarget;
+	public String name;
+	public String type;
+	public String value;
 
-	public Button(Element parent, HtmlAttributeToken[] attrs){
+	public Button(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -51,9 +49,6 @@ public class Button extends Element {
 					break;
 				case "formmethod":
 					formmethod = Formmethod.parse(this, v);
-					break;
-				case "post":
-					post = Post.parse(this, v);
 					break;
 				case "formnovalidate":
 					formnovalidate = Formnovalidate.parse(this, v);

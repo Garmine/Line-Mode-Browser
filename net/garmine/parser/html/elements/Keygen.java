@@ -8,15 +8,15 @@ import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Keytype;
 import net.garmine.parser.html.attributes.Name;
 
-public class Keygen extends Element {
-	public  autofocus;
-	public  challenge;
-	public  disabled;
-	public  form;
-	public  keytype;
-	public  name;
+public class Keygen extends HtmlElement {
+	public boolean autofocus;
+	public String challenge;
+	public boolean disabled;
+	public String form;
+	public Keytype keytype;
+	public String name;
 
-	public Keygen(Element parent, HtmlAttributeToken[] attrs){
+	public Keygen(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

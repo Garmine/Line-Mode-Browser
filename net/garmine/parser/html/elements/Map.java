@@ -3,10 +3,10 @@ package net.garmine.parser.html.elements;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Name;
 
-public class Map extends Element {
-	public  name;
+public class Map extends HtmlElement {
+	public String name;
 
-	public Map(Element parent, HtmlAttributeToken[] attrs){
+	public Map(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

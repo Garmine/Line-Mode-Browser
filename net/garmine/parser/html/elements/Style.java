@@ -5,12 +5,12 @@ import net.garmine.parser.html.attributes.Media;
 import net.garmine.parser.html.attributes.Scoped;
 import net.garmine.parser.html.attributes.Type;
 
-public class Style extends Element {
-	public  media;
-	public  scoped;
-	public  type;
+public class Style extends HtmlElement {
+	public String media;
+	public boolean scoped;
+	public String type;
 
-	public Style(Element parent, HtmlAttributeToken[] attrs){
+	public Style(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

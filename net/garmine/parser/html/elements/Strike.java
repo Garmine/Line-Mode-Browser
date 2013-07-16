@@ -8,22 +8,22 @@ import net.garmine.parser.html.attributes.Lang;
 import net.garmine.parser.html.attributes.Style;
 import net.garmine.parser.html.attributes.Title;
 
-public class Strike extends Element {
-	public  class;
-	public  dir;
-	public  id;
-	public  lang;
-	public  style;
-	public  title;
+public class Strike extends HtmlElement {
+	public String clazz;
+	public Dir dir;
+	public String id;
+	public String lang;
+	public String style;
+	public String title;
 
-	public Strike(Element parent, HtmlAttributeToken[] attrs){
+	public Strike(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
 			String v = attr.getValue();
 			switch(attr.getName()){
 				case "class":
-					class = Class.parse(this, v);
+					clazz = Class.parse(this, v);
 					break;
 				case "dir":
 					dir = Dir.parse(this, v);

@@ -8,15 +8,15 @@ import net.garmine.parser.html.attributes.Span;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
 
-public class Col extends Element {
-	public  align;
-	public  char;
-	public  charoff;
-	public  span;
-	public  valign;
-	public  width;
+public class Col extends HtmlElement {
+	public String align;
+	public char charr;
+	public int charoff;
+	public int span;
+	public Valign valign;
+	public int width;
 
-	public Col(Element parent, HtmlAttributeToken[] attrs){
+	public Col(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -26,7 +26,7 @@ public class Col extends Element {
 					align = Align.parse(this, v);
 					break;
 				case "char":
-					char = Char.parse(this, v);
+					charr = Char.parse(this, v);
 					break;
 				case "charoff":
 					charoff = Charoff.parse(this, v);

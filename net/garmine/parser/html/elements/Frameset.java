@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Cols;
 import net.garmine.parser.html.attributes.Rows;
 
-public class Frameset extends Element {
-	public  cols;
-	public  rows;
+public class Frameset extends HtmlElement {
+	public String cols;
+	public String rows;
 
-	public Frameset(Element parent, HtmlAttributeToken[] attrs){
+	public Frameset(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

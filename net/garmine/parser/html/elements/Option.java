@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Selected;
 import net.garmine.parser.html.attributes.Value;
 
-public class Option extends Element {
-	public  disabled;
-	public  label;
-	public  selected;
-	public  value;
+public class Option extends HtmlElement {
+	public boolean disabled;
+	public String label;
+	public boolean selected;
+	public String value;
 
-	public Option(Element parent, HtmlAttributeToken[] attrs){
+	public Option(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

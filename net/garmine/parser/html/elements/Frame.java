@@ -10,17 +10,17 @@ import net.garmine.parser.html.attributes.Noresize;
 import net.garmine.parser.html.attributes.Scrolling;
 import net.garmine.parser.html.attributes.Src;
 
-public class Frame extends Element {
-	public  frameborder;
-	public  longdesc;
-	public  marginheight;
-	public  marginwidth;
-	public  name;
-	public  noresize;
-	public  scrolling;
-	public  src;
+public class Frame extends HtmlElement {
+	public boolean frameborder;
+	public String longdesc;
+	public int marginheight;
+	public int marginwidth;
+	public String name;
+	public boolean noresize;
+	public Scrolling scrolling;
+	public String src;
 
-	public Frame(Element parent, HtmlAttributeToken[] attrs){
+	public Frame(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

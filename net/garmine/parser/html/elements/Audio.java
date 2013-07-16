@@ -8,15 +8,15 @@ import net.garmine.parser.html.attributes.Muted;
 import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
 
-public class Audio extends Element {
-	public  autoplay;
-	public  controls;
-	public  loop;
-	public  muted;
-	public  preload;
-	public  src;
+public class Audio extends HtmlElement {
+	public boolean autoplay;
+	public boolean controls;
+	public boolean loop;
+	public boolean muted;
+	public Preload preload;
+	public String src;
 
-	public Audio(Element parent, HtmlAttributeToken[] attrs){
+	public Audio(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

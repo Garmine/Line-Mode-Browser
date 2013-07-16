@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Reversed;
 import net.garmine.parser.html.attributes.Start;
 import net.garmine.parser.html.attributes.Type;
 
-public class Ol extends Element {
-	public  compact;
-	public  reversed;
-	public  start;
-	public  type;
+public class Ol extends HtmlElement {
+	public boolean compact;
+	public boolean reversed;
+	public int start;
+	public String type;
 
-	public Ol(Element parent, HtmlAttributeToken[] attrs){
+	public Ol(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

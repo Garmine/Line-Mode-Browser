@@ -4,18 +4,18 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.For;
 import net.garmine.parser.html.attributes.Form;
 
-public class Label extends Element {
-	public  for;
-	public  form;
+public class Label extends HtmlElement {
+	public String forr;
+	public String form;
 
-	public Label(Element parent, HtmlAttributeToken[] attrs){
+	public Label(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
 			String v = attr.getValue();
 			switch(attr.getName()){
 				case "for":
-					for = For.parse(this, v);
+					forr = For.parse(this, v);
 					break;
 				case "form":
 					form = Form.parse(this, v);

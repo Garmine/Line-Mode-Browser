@@ -11,18 +11,18 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Novalidate;
 import net.garmine.parser.html.attributes.Target;
 
-public class Form extends Element {
-	public  accept;
-	public  acceptcharset;
-	public  action;
-	public  autocomplete;
-	public  enctype;
-	public  method;
-	public  name;
-	public  novalidate;
-	public  target;
+public class Form extends HtmlElement {
+	public String accept;
+	public String acceptcharset;
+	public String action;
+	public boolean autocomplete;
+	public String enctype;
+	public Method method;
+	public String name;
+	public boolean novalidate;
+	public String target;
 
-	public Form(Element parent, HtmlAttributeToken[] attrs){
+	public Form(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

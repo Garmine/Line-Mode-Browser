@@ -10,33 +10,29 @@ import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Colspan;
 import net.garmine.parser.html.attributes.Headers;
 import net.garmine.parser.html.attributes.Height;
-import net.garmine.parser.html.attributes.Sets;
 import net.garmine.parser.html.attributes.Nowrap;
-import net.garmine.parser.html.attributes.Specifies;
 import net.garmine.parser.html.attributes.Rowspan;
 import net.garmine.parser.html.attributes.Scope;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
 
-public class Td extends Element {
-	public  abbr;
-	public  align;
-	public  axis;
-	public  bgcolor;
-	public  char;
-	public  charoff;
-	public  colspan;
-	public  headers;
-	public  height;
-	public  Sets;
-	public  nowrap;
-	public  Specifies;
-	public  rowspan;
-	public  scope;
-	public  valign;
-	public  width;
+public class Td extends HtmlElement {
+	public String abbr;
+	public String align;
+	public String axis;
+	public String bgcolor;
+	public char charr;
+	public int charoff;
+	public int colspan;
+	public String headers;
+	public int height;
+	public boolean nowrap;
+	public int rowspan;
+	public Scope scope;
+	public Valign valign;
+	public int width;
 
-	public Td(Element parent, HtmlAttributeToken[] attrs){
+	public Td(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -55,7 +51,7 @@ public class Td extends Element {
 					bgcolor = Bgcolor.parse(this, v);
 					break;
 				case "char":
-					char = Char.parse(this, v);
+					charr = Char.parse(this, v);
 					break;
 				case "charoff":
 					charoff = Charoff.parse(this, v);
@@ -69,14 +65,8 @@ public class Td extends Element {
 				case "height":
 					height = Height.parse(this, v);
 					break;
-				case "Sets":
-					Sets = Sets.parse(this, v);
-					break;
 				case "nowrap":
 					nowrap = Nowrap.parse(this, v);
-					break;
-				case "Specifies":
-					Specifies = Specifies.parse(this, v);
 					break;
 				case "rowspan":
 					rowspan = Rowspan.parse(this, v);

@@ -13,20 +13,20 @@ import net.garmine.parser.html.attributes.Required;
 import net.garmine.parser.html.attributes.Rows;
 import net.garmine.parser.html.attributes.Wrap;
 
-public class Textarea extends Element {
-	public  autofocus;
-	public  cols;
-	public  disabled;
-	public  form;
-	public  maxlength;
-	public  name;
-	public  placeholder;
-	public  readonly;
-	public  required;
-	public  rows;
-	public  wrap;
+public class Textarea extends HtmlElement {
+	public boolean autofocus;
+	public String cols;
+	public boolean disabled;
+	public String form;
+	public int maxlength;
+	public String name;
+	public String placeholder;
+	public boolean readonly;
+	public boolean required;
+	public String rows;
+	public Wrap wrap;
 
-	public Textarea(Element parent, HtmlAttributeToken[] attrs){
+	public Textarea(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -7,14 +7,14 @@ import net.garmine.parser.html.attributes.Defer;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Type;
 
-public class Script extends Element {
-	public  async;
-	public  charset;
-	public  defer;
-	public  src;
-	public  type;
+public class Script extends HtmlElement {
+	public boolean async;
+	public String charset;
+	public boolean defer;
+	public String src;
+	public String type;
 
-	public Script(Element parent, HtmlAttributeToken[] attrs){
+	public Script(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -11,18 +11,18 @@ import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Width;
 
-public class Video extends Element {
-	public  autoplay;
-	public  controls;
-	public  height;
-	public  loop;
-	public  muted;
-	public  poster;
-	public  preload;
-	public  src;
-	public  width;
+public class Video extends HtmlElement {
+	public boolean autoplay;
+	public boolean controls;
+	public int height;
+	public boolean loop;
+	public boolean muted;
+	public String poster;
+	public Preload preload;
+	public String src;
+	public int width;
 
-	public Video(Element parent, HtmlAttributeToken[] attrs){
+	public Video(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

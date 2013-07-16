@@ -5,12 +5,12 @@ import net.garmine.parser.html.attributes.Color;
 import net.garmine.parser.html.attributes.Face;
 import net.garmine.parser.html.attributes.Size;
 
-public class Font extends Element {
-	public  color;
-	public  face;
-	public  size;
+public class Font extends HtmlElement {
+	public String color;
+	public String face;
+	public int size;
 
-	public Font(Element parent, HtmlAttributeToken[] attrs){
+	public Font(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

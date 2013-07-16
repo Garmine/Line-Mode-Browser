@@ -9,16 +9,16 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Required;
 import net.garmine.parser.html.attributes.Size;
 
-public class Select extends Element {
-	public  autofocus;
-	public  disabled;
-	public  form;
-	public  multiple;
-	public  name;
-	public  required;
-	public  size;
+public class Select extends HtmlElement {
+	public boolean autofocus;
+	public boolean disabled;
+	public String form;
+	public boolean multiple;
+	public String name;
+	public boolean required;
+	public int size;
 
-	public Select(Element parent, HtmlAttributeToken[] attrs){
+	public Select(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

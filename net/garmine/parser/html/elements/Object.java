@@ -19,26 +19,26 @@ import net.garmine.parser.html.attributes.Usemap;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 
-public class Object extends Element {
-	public  align;
-	public  archive;
-	public  border;
-	public  classid;
-	public  codebase;
-	public  codetype;
-	public  data;
-	public  declare;
-	public  form;
-	public  height;
-	public  hspace;
-	public  name;
-	public  standby;
-	public  type;
-	public  usemap;
-	public  vspace;
-	public  width;
+public class Object extends HtmlElement {
+	public String align;
+	public String archive;
+	public boolean border;
+	public String classid;
+	public String codebase;
+	public String codetype;
+	public String data;
+	public boolean declare;
+	public String form;
+	public int height;
+	public int hspace;
+	public String name;
+	public String standby;
+	public String type;
+	public String usemap;
+	public int vspace;
+	public int width;
 
-	public Object(Element parent, HtmlAttributeToken[] attrs){
+	public Object(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

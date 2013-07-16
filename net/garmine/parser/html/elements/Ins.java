@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Cite;
 import net.garmine.parser.html.attributes.Datetime;
 
-public class Ins extends Element {
-	public  cite;
-	public  datetime;
+public class Ins extends HtmlElement {
+	public String cite;
+	public String datetime;
 
-	public Ins(Element parent, HtmlAttributeToken[] attrs){
+	public Ins(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

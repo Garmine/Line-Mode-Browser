@@ -7,21 +7,21 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srclang;
 
-public class Track extends Element {
-	public  default;
-	public  kind;
-	public  label;
-	public  src;
-	public  srclang;
+public class Track extends HtmlElement {
+	public boolean defaultt;
+	public Kind kind;
+	public String label;
+	public String src;
+	public String srclang;
 
-	public Track(Element parent, HtmlAttributeToken[] attrs){
+	public Track(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
 			String v = attr.getValue();
 			switch(attr.getName()){
 				case "default":
-					default = Default.parse(this, v);
+					defaultt = Default.parse(this, v);
 					break;
 				case "kind":
 					kind = Kind.parse(this, v);

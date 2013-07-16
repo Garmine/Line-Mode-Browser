@@ -6,23 +6,21 @@ import net.garmine.parser.html.attributes.Href;
 import net.garmine.parser.html.attributes.Hreflang;
 import net.garmine.parser.html.attributes.Media;
 import net.garmine.parser.html.attributes.Rel;
-import net.garmine.parser.html.attributes.Rev;
 import net.garmine.parser.html.attributes.Sizes;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.attributes.Type;
 
-public class Link extends Element {
-	public  charset;
-	public  href;
-	public  hreflang;
-	public  media;
-	public  rel;
-	public  rev;
-	public  sizes;
-	public  target;
-	public  type;
+public class Link extends HtmlElement {
+	public String charset;
+	public String href;
+	public String hreflang;
+	public String media;
+	public Rel rel;
+	public String sizes;
+	public String target;
+	public String type;
 
-	public Link(Element parent, HtmlAttributeToken[] attrs){
+	public Link(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -42,9 +40,6 @@ public class Link extends Element {
 					break;
 				case "rel":
 					rel = Rel.parse(this, v);
-					break;
-				case "rev":
-					rev = Rev.parse(this, v);
 					break;
 				case "sizes":
 					sizes = Sizes.parse(this, v);

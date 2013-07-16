@@ -16,23 +16,23 @@ import net.garmine.parser.html.attributes.Scope;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
 
-public class Th extends Element {
-	public  abbr;
-	public  align;
-	public  axis;
-	public  bgcolor;
-	public  char;
-	public  charoff;
-	public  colspan;
-	public  headers;
-	public  height;
-	public  nowrap;
-	public  rowspan;
-	public  scope;
-	public  valign;
-	public  width;
+public class Th extends HtmlElement {
+	public String abbr;
+	public String align;
+	public String axis;
+	public String bgcolor;
+	public char charr;
+	public int charoff;
+	public int colspan;
+	public String headers;
+	public int height;
+	public boolean nowrap;
+	public int rowspan;
+	public Scope scope;
+	public Valign valign;
+	public int width;
 
-	public Th(Element parent, HtmlAttributeToken[] attrs){
+	public Th(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -51,7 +51,7 @@ public class Th extends Element {
 					bgcolor = Bgcolor.parse(this, v);
 					break;
 				case "char":
-					char = Char.parse(this, v);
+					charr = Char.parse(this, v);
 					break;
 				case "charoff":
 					charoff = Charoff.parse(this, v);

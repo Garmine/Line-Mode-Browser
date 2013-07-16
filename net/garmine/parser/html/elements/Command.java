@@ -8,15 +8,15 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Radiogroup;
 import net.garmine.parser.html.attributes.Type;
 
-public class Command extends Element {
-	public  checked;
-	public  disabled;
-	public  icon;
-	public  label;
-	public  radiogroup;
-	public  type;
+public class Command extends HtmlElement {
+	public boolean checked;
+	public boolean disabled;
+	public String icon;
+	public String label;
+	public String radiogroup;
+	public String type;
 
-	public Command(Element parent, HtmlAttributeToken[] attrs){
+	public Command(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

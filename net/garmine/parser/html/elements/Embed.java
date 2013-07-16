@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Width;
 
-public class Embed extends Element {
-	public  height;
-	public  src;
-	public  type;
-	public  width;
+public class Embed extends HtmlElement {
+	public int height;
+	public String src;
+	public String type;
+	public int width;
 
-	public Embed(Element parent, HtmlAttributeToken[] attrs){
+	public Embed(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

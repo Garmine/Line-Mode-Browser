@@ -3,10 +3,10 @@ package net.garmine.parser.html.elements;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 
-public class Caption extends Element {
-	public  align;
+public class Caption extends HtmlElement {
+	public String align;
 
-	public Caption(Element parent, HtmlAttributeToken[] attrs){
+	public Caption(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

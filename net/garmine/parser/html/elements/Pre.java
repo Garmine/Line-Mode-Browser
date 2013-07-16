@@ -3,10 +3,10 @@ package net.garmine.parser.html.elements;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Width;
 
-public class Pre extends Element {
-	public  width;
+public class Pre extends HtmlElement {
+	public int width;
 
-	public Pre(Element parent, HtmlAttributeToken[] attrs){
+	public Pre(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

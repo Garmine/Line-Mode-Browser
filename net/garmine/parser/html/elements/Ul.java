@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Compact;
 import net.garmine.parser.html.attributes.Type;
 
-public class Ul extends Element {
-	public  compact;
-	public  type;
+public class Ul extends HtmlElement {
+	public boolean compact;
+	public String type;
 
-	public Ul(Element parent, HtmlAttributeToken[] attrs){
+	public Ul(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

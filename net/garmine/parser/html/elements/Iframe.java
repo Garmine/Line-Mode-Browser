@@ -15,22 +15,22 @@ import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srcdoc;
 import net.garmine.parser.html.attributes.Width;
 
-public class Iframe extends Element {
-	public  align;
-	public  frameborder;
-	public  height;
-	public  longdesc;
-	public  marginheight;
-	public  marginwidth;
-	public  name;
-	public  sandbox;
-	public  scrolling;
-	public  seamless;
-	public  src;
-	public  srcdoc;
-	public  width;
+public class Iframe extends HtmlElement {
+	public String align;
+	public boolean frameborder;
+	public int height;
+	public String longdesc;
+	public int marginheight;
+	public int marginwidth;
+	public String name;
+	public Sandbox sandbox;
+	public Scrolling scrolling;
+	public boolean seamless;
+	public String src;
+	public String srcdoc;
+	public int width;
 
-	public Iframe(Element parent, HtmlAttributeToken[] attrs){
+	public Iframe(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

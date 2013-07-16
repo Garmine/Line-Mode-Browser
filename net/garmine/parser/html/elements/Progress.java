@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Max;
 import net.garmine.parser.html.attributes.Value;
 
-public class Progress extends Element {
-	public  max;
-	public  value;
+public class Progress extends HtmlElement {
+	public int max;
+	public String value;
 
-	public Progress(Element parent, HtmlAttributeToken[] attrs){
+	public Progress(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

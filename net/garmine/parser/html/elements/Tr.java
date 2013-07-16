@@ -7,14 +7,14 @@ import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
 
-public class Tr extends Element {
-	public  align;
-	public  bgcolor;
-	public  char;
-	public  charoff;
-	public  valign;
+public class Tr extends HtmlElement {
+	public String align;
+	public String bgcolor;
+	public char charr;
+	public int charoff;
+	public Valign valign;
 
-	public Tr(Element parent, HtmlAttributeToken[] attrs){
+	public Tr(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -27,7 +27,7 @@ public class Tr extends Element {
 					bgcolor = Bgcolor.parse(this, v);
 					break;
 				case "char":
-					char = Char.parse(this, v);
+					charr = Char.parse(this, v);
 					break;
 				case "charoff":
 					charoff = Charoff.parse(this, v);

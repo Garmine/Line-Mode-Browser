@@ -14,21 +14,21 @@ import net.garmine.parser.html.attributes.Usemap;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 
-public class Img extends Element {
-	public  align;
-	public  alt;
-	public  border;
-	public  crossorigin;
-	public  height;
-	public  hspace;
-	public  ismap;
-	public  longdesc;
-	public  src;
-	public  usemap;
-	public  vspace;
-	public  width;
+public class Img extends HtmlElement {
+	public String align;
+	public String alt;
+	public boolean border;
+	public Crossorigin crossorigin;
+	public int height;
+	public int hspace;
+	public boolean ismap;
+	public String longdesc;
+	public String src;
+	public String usemap;
+	public int vspace;
+	public int width;
 
-	public Img(Element parent, HtmlAttributeToken[] attrs){
+	public Img(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

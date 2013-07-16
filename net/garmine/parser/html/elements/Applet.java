@@ -13,20 +13,20 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 
-public class Applet extends Element {
-	public  code;
-	public  object;
-	public  align;
-	public  alt;
-	public  archive;
-	public  codebase;
-	public  height;
-	public  hspace;
-	public  name;
-	public  vspace;
-	public  width;
+public class Applet extends HtmlElement {
+	public String code;
+	public String object;
+	public String align;
+	public String alt;
+	public String archive;
+	public String codebase;
+	public int height;
+	public int hspace;
+	public String name;
+	public int vspace;
+	public int width;
 
-	public Applet(Element parent, HtmlAttributeToken[] attrs){
+	public Applet(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

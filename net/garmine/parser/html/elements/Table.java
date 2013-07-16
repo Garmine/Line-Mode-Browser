@@ -2,7 +2,6 @@ package net.garmine.parser.html.elements;
 
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
-import net.garmine.parser.html.attributes.Center;
 import net.garmine.parser.html.attributes.Bgcolor;
 import net.garmine.parser.html.attributes.Border;
 import net.garmine.parser.html.attributes.Cellpadding;
@@ -12,19 +11,18 @@ import net.garmine.parser.html.attributes.Rules;
 import net.garmine.parser.html.attributes.Summary;
 import net.garmine.parser.html.attributes.Width;
 
-public class Table extends Element {
-	public  align;
-	public  center;
-	public  bgcolor;
-	public  border;
-	public  cellpadding;
-	public  cellspacing;
-	public  frame;
-	public  rules;
-	public  summary;
-	public  width;
+public class Table extends HtmlElement {
+	public String align;
+	public String bgcolor;
+	public boolean border;
+	public int cellpadding;
+	public int cellspacing;
+	public String frame;
+	public Rules rules;
+	public String summary;
+	public int width;
 
-	public Table(Element parent, HtmlAttributeToken[] attrs){
+	public Table(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
@@ -34,7 +32,6 @@ public class Table extends Element {
 					align = Align.parse(this, v);
 					break;
 				case "center":
-					center = Center.parse(this, v);
 					break;
 				case "bgcolor":
 					bgcolor = Bgcolor.parse(this, v);

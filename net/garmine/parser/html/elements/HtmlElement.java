@@ -1,6 +1,7 @@
 package net.garmine.parser.html.elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Accesskey;
@@ -22,39 +23,43 @@ import net.garmine.parser.html.attributes.Translate;
 public class HtmlElement {
 	/** The parent element */
 	public HtmlElement parent;
-	
+	/** Children of the element */
 	public ArrayList<HtmlElement> children;
 	
-	/** Specifies a shortcut key to activate/focus the element. */
 	public char accesskey;
-	/** Specifies one or more (CSS) classes for the element. */
-	public String[] classes;
-	/**  */
+	public String clazz;
 	public boolean contenteditable;
-	
 	public String contextmenu;
-	
 	public Dir dir;
-	
 	public boolean draggable;
-	
 	public Dropzone dropzone;
-	
 	public boolean hidden;
-	
 	public String id;
-	
 	public String lang;
-	
 	public boolean spellcheck;
-	
 	public String style;
-	
 	public int tabindex;
-	
 	public String title;
-	
 	public boolean translate;
+	
+	private HashMap<String, String> etc;
+	
+	public String getDataAttribute(String name){
+		if(etc == null){
+			return null;
+		}else{
+			return etc.get(name);
+		}
+	}
+	
+	public boolean setDataAttribute(String name, String value){
+		if(etc == null){
+			return false;
+		}else{
+			etc.put(name, value);
+			return true;
+		}
+	}
 	
 	public HtmlElement(HtmlElement parent, HtmlAttributeToken[] attrs){
 		children = new ArrayList<>();
@@ -106,9 +111,17 @@ public class HtmlElement {
 				case "translate":
 					translate = Translate.parse(this, v);
 					break;
+				case "class":
+					clazz = Class.parse(this, v);
+					break;
 					
 				default:
-					
+					if(attr.getName().startsWith("data-")){
+						if (etc == null) etc = new HashMap<>();
+						etc.put(attr.getName(), v);
+					}else{
+						//TODO: this is an error!
+					}
 					break;
 			}
 		}

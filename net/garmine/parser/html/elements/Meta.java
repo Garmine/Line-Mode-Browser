@@ -7,14 +7,14 @@ import net.garmine.parser.html.attributes.Httpequiv;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Scheme;
 
-public class Meta extends Element {
-	public  charset;
-	public  content;
-	public  httpequiv;
-	public  name;
-	public  scheme;
+public class Meta extends HtmlElement {
+	public String charset;
+	public String content;
+	public String httpequiv;
+	public String name;
+	public String scheme;
 
-	public Meta(Element parent, HtmlAttributeToken[] attrs){
+	public Meta(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Noshade;
 import net.garmine.parser.html.attributes.Size;
 import net.garmine.parser.html.attributes.Width;
 
-public class Hr extends Element {
-	public  align;
-	public  noshade;
-	public  size;
-	public  width;
+public class Hr extends HtmlElement {
+	public String align;
+	public boolean noshade;
+	public int size;
+	public int width;
 
-	public Hr(Element parent, HtmlAttributeToken[] attrs){
+	public Hr(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -6,13 +6,13 @@ import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.attributes.Valuetype;
 
-public class Param extends Element {
-	public  name;
-	public  type;
-	public  value;
-	public  valuetype;
+public class Param extends HtmlElement {
+	public String name;
+	public String type;
+	public String value;
+	public String valuetype;
 
-	public Param(Element parent, HtmlAttributeToken[] attrs){
+	public Param(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

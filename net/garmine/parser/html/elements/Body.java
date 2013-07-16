@@ -8,15 +8,15 @@ import net.garmine.parser.html.attributes.Link;
 import net.garmine.parser.html.attributes.Text;
 import net.garmine.parser.html.attributes.Vlink;
 
-public class Body extends Element {
-	public  alink;
-	public  background;
-	public  bgcolor;
-	public  link;
-	public  text;
-	public  vlink;
+public class Body extends HtmlElement {
+	public String alink;
+	public String background;
+	public String bgcolor;
+	public String link;
+	public String text;
+	public String vlink;
 
-	public Body(Element parent, HtmlAttributeToken[] attrs){
+	public Body(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

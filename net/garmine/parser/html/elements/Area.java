@@ -12,19 +12,19 @@ import net.garmine.parser.html.attributes.Shape;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.attributes.Type;
 
-public class Area extends Element {
-	public  alt;
-	public  coords;
-	public  href;
-	public  hreflang;
-	public  media;
-	public  nohref;
-	public  rel;
-	public  shape;
-	public  target;
-	public  type;
+public class Area extends HtmlElement {
+	public String alt;
+	public String coords;
+	public String href;
+	public String hreflang;
+	public String media;
+	public boolean nohref;
+	public Rel rel;
+	public Shape shape;
+	public String target;
+	public String type;
 
-	public Area(Element parent, HtmlAttributeToken[] attrs){
+	public Area(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

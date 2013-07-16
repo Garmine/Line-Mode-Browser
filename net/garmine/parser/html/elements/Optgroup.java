@@ -4,11 +4,11 @@ import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Label;
 
-public class Optgroup extends Element {
-	public  disabled;
-	public  label;
+public class Optgroup extends HtmlElement {
+	public boolean disabled;
+	public String label;
 
-	public Optgroup(Element parent, HtmlAttributeToken[] attrs){
+	public Optgroup(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

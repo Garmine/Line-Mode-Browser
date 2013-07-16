@@ -5,12 +5,12 @@ import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Name;
 
-public class Fieldset extends Element {
-	public  disabled;
-	public  form;
-	public  name;
+public class Fieldset extends HtmlElement {
+	public boolean disabled;
+	public String form;
+	public String name;
 
-	public Fieldset(Element parent, HtmlAttributeToken[] attrs){
+	public Fieldset(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
