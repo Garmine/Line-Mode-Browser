@@ -8,11 +8,13 @@ A possible solution would be to use interfaces on the HtmlElements instead (e.g.
 
 The laziest solution would be to store everything in a String-String HashMap, however, that'd make it imposssible to make the HtmlElements easy-to-use and typesafe.
 
-TL;DR this needs a rewrite!
+`TL;DR this needs a rewrite!`
 
 ##ETC
 
 HTML-tree
+
 Texts inside elements
+
 Display
 
