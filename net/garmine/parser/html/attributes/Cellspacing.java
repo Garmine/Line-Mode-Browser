@@ -1,6 +1,6 @@
 package net.garmine.parser.html.attributes;
 
-import net.garmine.parser.html.elements.HtmlElement;
+import net.garmine.parser.html.HtmlElement;
 
 public class Cellspacing {
 	public static int parse(HtmlElement element, String str){

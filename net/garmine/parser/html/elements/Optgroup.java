@@ -1,5 +1,6 @@
 package net.garmine.parser.html.elements;
 
+import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Label;
