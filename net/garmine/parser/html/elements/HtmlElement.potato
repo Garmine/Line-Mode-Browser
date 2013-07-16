@@ -1,0 +1,116 @@
+package net.garmine.parser.html.elements;
+
+import java.util.ArrayList;
+
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
+import net.garmine.parser.html.attributes.Accesskey;
+import net.garmine.parser.html.attributes.Class;
+import net.garmine.parser.html.attributes.Contenteditable;
+import net.garmine.parser.html.attributes.Contextmenu;
+import net.garmine.parser.html.attributes.Dir;
+import net.garmine.parser.html.attributes.Draggable;
+import net.garmine.parser.html.attributes.Dropzone;
+import net.garmine.parser.html.attributes.Hidden;
+import net.garmine.parser.html.attributes.Id;
+import net.garmine.parser.html.attributes.Lang;
+import net.garmine.parser.html.attributes.Spellcheck;
+import net.garmine.parser.html.attributes.Style;
+import net.garmine.parser.html.attributes.Tabindex;
+import net.garmine.parser.html.attributes.Title;
+import net.garmine.parser.html.attributes.Translate;
+
+public class Element {
+	/** The parent element */
+	public Element parent;
+	
+	public ArrayList<Element> children;
+	
+	/** Specifies a shortcut key to activate/focus the element. */
+	public char accesskey;
+	/** Specifies one or more (CSS) classes for the element. */
+	public String[] classes;
+	/**  */
+	public boolean contenteditable;
+	
+	public String contextmenu;
+	
+	public HtmlDir dir;
+	
+	public boolean draggable;
+	
+	public HtmlDropzone dropzone;
+	
+	public boolean hidden;
+	
+	public String id;
+	
+	public String lang;
+	
+	public boolean spellcheck;
+	
+	public String style;
+	
+	public int tabindex;
+	
+	public String title;
+	
+	public boolean translate;
+	
+	public Element(Element parent, HtmlAttributeToken[] attrs){
+		children = new ArrayList<>();
+		this.parent = parent;
+		if (parent != null) parent.children.add(this);
+		
+		for(HtmlAttributeToken attr:attrs){
+			String v = attr.getValue();
+			switch(attr.getName()){
+				case "accesskey":
+					accesskey = Accesskey.parse(v);
+					break;
+				case "contenteditable":
+					contenteditable = Contenteditable.parse(v);
+					break;
+				case "contextmenu":
+					contextmenu = Contextmenu.parse(v);
+					break;
+				case "dir":
+					dir = Dir.parse(v);
+					break;
+				case "draggable":
+					draggable = Draggable.parse(v);
+					break;
+				case "dropzone":
+					dropzone = Dropzone.parse(v);
+					break;
+				case "hidden":
+					hidden = Hidden.parse(v);
+					break;
+				case "id":
+					id = Id.parse(v);
+					break;
+				case "lang":
+					lang = Lang.parse(v);
+					break;
+				case "spellcheck":
+					spellcheck = Spellcheck.parse(v);
+					break;
+				case "style":
+					style = Style.parse(v);
+					break;
+				case "tabindex":
+					tabindex = Tabindex.parse(v);
+					break;
+				case "title":
+					title = Title.parse(v);
+					break;
+				case "translate":
+					translate = Translate.parse(v);
+					break;
+					
+				default:
+					
+					break;
+			}
+		}
+	}
+}
