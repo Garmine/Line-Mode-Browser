@@ -1,7 +1,7 @@
 #License
 
 
-##The GPLv2 License
+##The GPLv3 License
 
     JavaModeBrowser - A Java replica of the Line Mode Browser
     Copyright (C) 2013 Garmine
