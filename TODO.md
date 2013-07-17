@@ -8,13 +8,20 @@ A possible solution would be to use interfaces on the HtmlElements instead (e.g.
 
 The laziest solution would be to store everything in a String-String HashMap, however, that'd make it imposssible to make the HtmlElements easy-to-use and typesafe.
 
-`TL;DR this needs a rewrite!`
+**TL;DR** this needs a rewrite!
 
-##ETC
+##Other
+
+HTTP-lib
+ * Redesign automatic parsing of incoming data
+
+HTML-tokenizer
+ * Callbacks (e.g. for &lt;meta&gt;'s encoding)
 
 HTML-tree
-
-Texts inside elements
+ * Legal/illegal children/parent lists
+ * Add getType() to Elements
 
 Display
+ * Every single thing.
 
