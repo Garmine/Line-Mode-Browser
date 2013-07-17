@@ -20,7 +20,6 @@ HTML-tokenizer
 
 HTML-tree
  * Legal/illegal children/parent lists
- * Add getType() to Elements
 
 Display
  * Every single thing.
