@@ -1,11 +1,17 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.H4;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class H4 extends HtmlElement {
 	public String align;
+
+	@Override
+	public HtmlElementType getType() {
+		return H4;
+	}
 
 	public H4(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

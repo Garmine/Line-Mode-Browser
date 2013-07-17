@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.FORM;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Accept;
 import net.garmine.parser.html.attributes.Acceptcharset;
 import net.garmine.parser.html.attributes.Action;
@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Method;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Novalidate;
 import net.garmine.parser.html.attributes.Target;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Form extends HtmlElement {
 	public String accept;
@@ -22,6 +23,11 @@ public class Form extends HtmlElement {
 	public String name;
 	public boolean novalidate;
 	public String target;
+
+	@Override
+	public HtmlElementType getType() {
+		return FORM;
+	}
 
 	public Form(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

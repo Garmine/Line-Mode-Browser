@@ -1,13 +1,14 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.COLGROUP;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Span;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Colgroup extends HtmlElement {
 	public String align;
@@ -16,6 +17,11 @@ public class Colgroup extends HtmlElement {
 	public int span;
 	public Valign valign;
 	public int width;
+
+	@Override
+	public HtmlElementType getType() {
+		return COLGROUP;
+	}
 
 	public Colgroup(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

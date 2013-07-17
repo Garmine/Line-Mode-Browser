@@ -1,12 +1,13 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.TR;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Bgcolor;
 import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Tr extends HtmlElement {
 	public String align;
@@ -14,6 +15,11 @@ public class Tr extends HtmlElement {
 	public char charr;
 	public int charoff;
 	public Valign valign;
+
+	@Override
+	public HtmlElementType getType() {
+		return TR;
+	}
 
 	public Tr(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

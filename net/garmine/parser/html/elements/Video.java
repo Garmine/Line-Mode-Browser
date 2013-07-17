@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.VIDEO;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Autoplay;
 import net.garmine.parser.html.attributes.Controls;
 import net.garmine.parser.html.attributes.Height;
@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Poster;
 import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Video extends HtmlElement {
 	public boolean autoplay;
@@ -22,6 +23,11 @@ public class Video extends HtmlElement {
 	public Preload preload;
 	public String src;
 	public int width;
+
+	@Override
+	public HtmlElementType getType() {
+		return VIDEO;
+	}
 
 	public Video(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

@@ -1,13 +1,14 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.COMMAND;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Checked;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Icon;
 import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Radiogroup;
 import net.garmine.parser.html.attributes.Type;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Command extends HtmlElement {
 	public boolean checked;
@@ -16,6 +17,11 @@ public class Command extends HtmlElement {
 	public String label;
 	public String radiogroup;
 	public String type;
+
+	@Override
+	public HtmlElementType getType() {
+		return COMMAND;
+	}
 
 	public Command(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

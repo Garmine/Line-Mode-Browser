@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.IFRAME;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Frameborder;
 import net.garmine.parser.html.attributes.Height;
@@ -15,6 +15,7 @@ import net.garmine.parser.html.attributes.Seamless;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srcdoc;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Iframe extends HtmlElement {
 	public String align;
@@ -30,6 +31,11 @@ public class Iframe extends HtmlElement {
 	public String src;
 	public String srcdoc;
 	public int width;
+
+	@Override
+	public HtmlElementType getType() {
+		return IFRAME;
+	}
 
 	public Iframe(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

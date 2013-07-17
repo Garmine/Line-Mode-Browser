@@ -1,9 +1,10 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.INPUT;
+
 import java.util.regex.Pattern;
 
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Accept;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Alt;
@@ -33,6 +34,7 @@ import net.garmine.parser.html.attributes.Step;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Input extends HtmlElement {
 	public String accept;
@@ -65,6 +67,11 @@ public class Input extends HtmlElement {
 	public String type;
 	public String value;
 	public int width;
+
+	@Override
+	public HtmlElementType getType() {
+		return INPUT;
+	}
 
 	public Input(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

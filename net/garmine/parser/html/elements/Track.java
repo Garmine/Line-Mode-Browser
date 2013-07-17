@@ -1,12 +1,13 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.TRACK;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Default;
 import net.garmine.parser.html.attributes.Kind;
 import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srclang;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Track extends HtmlElement {
 	public boolean defaultt;
@@ -14,6 +15,11 @@ public class Track extends HtmlElement {
 	public String label;
 	public String src;
 	public String srclang;
+
+	@Override
+	public HtmlElementType getType() {
+		return TRACK;
+	}
 
 	public Track(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

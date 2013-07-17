@@ -1,17 +1,23 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.PARAM;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.attributes.Valuetype;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Param extends HtmlElement {
 	public String name;
 	public String type;
 	public String value;
 	public String valuetype;
+
+	@Override
+	public HtmlElementType getType() {
+		return PARAM;
+	}
 
 	public Param(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

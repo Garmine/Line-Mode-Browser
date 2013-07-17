@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.TEXTAREA;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Autofocus;
 import net.garmine.parser.html.attributes.Cols;
 import net.garmine.parser.html.attributes.Disabled;
@@ -13,6 +13,7 @@ import net.garmine.parser.html.attributes.Readonly;
 import net.garmine.parser.html.attributes.Required;
 import net.garmine.parser.html.attributes.Rows;
 import net.garmine.parser.html.attributes.Wrap;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Textarea extends HtmlElement {
 	public boolean autofocus;
@@ -26,6 +27,11 @@ public class Textarea extends HtmlElement {
 	public boolean required;
 	public String rows;
 	public Wrap wrap;
+
+	@Override
+	public HtmlElementType getType() {
+		return TEXTAREA;
+	}
 
 	public Textarea(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

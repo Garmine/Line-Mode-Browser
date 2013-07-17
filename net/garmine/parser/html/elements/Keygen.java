@@ -1,13 +1,14 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.KEYGEN;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Autofocus;
 import net.garmine.parser.html.attributes.Challenge;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Keytype;
 import net.garmine.parser.html.attributes.Name;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Keygen extends HtmlElement {
 	public boolean autofocus;
@@ -16,6 +17,11 @@ public class Keygen extends HtmlElement {
 	public String form;
 	public Keytype keytype;
 	public String name;
+
+	@Override
+	public HtmlElementType getType() {
+		return KEYGEN;
+	}
 
 	public Keygen(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

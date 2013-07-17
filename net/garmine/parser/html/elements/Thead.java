@@ -1,17 +1,23 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.THEAD;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Thead extends HtmlElement {
 	public String align;
 	public char charr;
 	public int charoff;
 	public Valign valign;
+
+	@Override
+	public HtmlElementType getType() {
+		return THEAD;
+	}
 
 	public Thead(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

@@ -1,17 +1,23 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.OPTION;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Selected;
 import net.garmine.parser.html.attributes.Value;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Option extends HtmlElement {
 	public boolean disabled;
 	public String label;
 	public boolean selected;
 	public String value;
+
+	@Override
+	public HtmlElementType getType() {
+		return OPTION;
+	}
 
 	public Option(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

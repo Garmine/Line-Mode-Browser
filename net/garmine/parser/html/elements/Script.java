@@ -1,12 +1,13 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.SCRIPT;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Async;
 import net.garmine.parser.html.attributes.Charset;
 import net.garmine.parser.html.attributes.Defer;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Type;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Script extends HtmlElement {
 	public boolean async;
@@ -14,6 +15,11 @@ public class Script extends HtmlElement {
 	public boolean defer;
 	public String src;
 	public String type;
+
+	@Override
+	public HtmlElementType getType() {
+		return SCRIPT;
+	}
 
 	public Script(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

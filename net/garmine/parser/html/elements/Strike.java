@@ -1,13 +1,14 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.STRIKE;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Class;
 import net.garmine.parser.html.attributes.Dir;
 import net.garmine.parser.html.attributes.Id;
 import net.garmine.parser.html.attributes.Lang;
 import net.garmine.parser.html.attributes.Style;
 import net.garmine.parser.html.attributes.Title;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Strike extends HtmlElement {
 	public String clazz;
@@ -16,6 +17,11 @@ public class Strike extends HtmlElement {
 	public String lang;
 	public String style;
 	public String title;
+
+	@Override
+	public HtmlElementType getType() {
+		return STRIKE;
+	}
 
 	public Strike(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

@@ -1,13 +1,14 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.AUDIO;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Autoplay;
 import net.garmine.parser.html.attributes.Controls;
 import net.garmine.parser.html.attributes.Loop;
 import net.garmine.parser.html.attributes.Muted;
 import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Audio extends HtmlElement {
 	public boolean autoplay;
@@ -16,6 +17,11 @@ public class Audio extends HtmlElement {
 	public boolean muted;
 	public Preload preload;
 	public String src;
+
+	@Override
+	public HtmlElementType getType() {
+		return AUDIO;
+	}
 
 	public Audio(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);

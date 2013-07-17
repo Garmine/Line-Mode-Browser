@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
+import static net.garmine.parser.html.elements.HtmlElementType.TABLE;
 import net.garmine.parser.html.HtmlElement;
-import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Bgcolor;
 import net.garmine.parser.html.attributes.Border;
@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Frame;
 import net.garmine.parser.html.attributes.Rules;
 import net.garmine.parser.html.attributes.Summary;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Table extends HtmlElement {
 	public String align;
@@ -22,6 +23,11 @@ public class Table extends HtmlElement {
 	public Rules rules;
 	public String summary;
 	public int width;
+
+	@Override
+	public HtmlElementType getType() {
+		return TABLE;
+	}
 
 	public Table(HtmlElement parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
