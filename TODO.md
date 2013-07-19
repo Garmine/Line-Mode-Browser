@@ -21,9 +21,6 @@ HTML-tokenizer
 HTML-tree
  * Legal/illegal children/parent lists
 
-HtmlElements
- * Change constructors to: public %s(HtmlMidNode parent, HtmlAttributeToken[] attrs)
-
 Display
  * Every single thing.
 
