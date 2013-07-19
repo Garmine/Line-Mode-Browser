@@ -5,16 +5,35 @@ import java.io.Reader;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import net.garmine.parser.html.MalformedHtmlException;
 import net.garmine.parser.html.tokenizer.HtmlTokenizerState;
 import net.garmine.parser.html.tokenizer.tokens.*;
 
 import static net.garmine.parser.html.tokenizer.HtmlTokenizerState.*;
 import static net.garmine.parser.html.tokenizer.HtmlEntities.HTML_ENTITIES;
 
+/**
+ * The class which tokenizes HTML documents.
+ * @author Garmine
+ */
 public class HtmlTokenizer {
+	/**
+	 * An temporary storage Class for INSIDE use only! 
+	 * It overrides the {@link #hashCode()} and {@link #equals()} 
+	 * methods in such a way that it'll only consider the 
+	 * {{@link #name} of the Attribute!
+	 * @author Garmine
+	 */
 	private class Attribute{
+		/** The name of the Attribute */
 		private final String name;
+		/** The value of the Attribute */
 		private final String value;
+		/**
+		 * Construct a new Attribute.
+		 * @param name - the name of the Attribute
+		 * @param value - the value of the Attribute
+		 */
 		private Attribute(String name, String value){
 			this.name = name;
 			this.value = value;
@@ -30,13 +49,13 @@ public class HtmlTokenizer {
 	}
 	
 	/** Flag if Tokenizer shall die on first error */
-	private final boolean DIE;
+	private final boolean die;
 	
 	//=======================[INPUT/OUTPUT]======================//
 	/** The integer ({@value}) that a Reader returns when it reaches the End Of Stream */
 	public static final int EOF = -1;
 	/** The input source */
-	private final Reader INPUT;
+	private final Reader input;
 	/** Current character (or EOF) */
 	private int current;
 	/** Reconsume flag */
@@ -46,8 +65,8 @@ public class HtmlTokenizer {
 	/** 
 	 * Output queue (buffer): we shall only emit 1 Token / call, 
 	 * but the state machine may emit multiple Tokens before it stops.
-	 *  */
-	private final LinkedList<HtmlToken> QUEUE;
+	 */
+	private final LinkedList<HtmlToken> queue;
 
 	//=========================[BUFFERS]=========================//
 	/** Temporary buffer (~2KB = 1024 chars initally) */
@@ -94,39 +113,52 @@ public class HtmlTokenizer {
 	private boolean end = false;
 	
 	/**
-	 * 
-	 * @param in
-	 * @param die
+	 * Constructs and initializes a new HTML Tokenizer.
+	 * @param in - input Stream
+	 * @param die - flag if Tokenizer shall die on first error (~strict mode)
+	 * @throws IOException if reading the input stream fails for whatever reason
+	 * @throws MalformedHtmlException if the {@link #die} flag is set and the initialization fails due to malformed HTML
 	 */
-	public HtmlTokenizer(Reader in, boolean die){
+	public HtmlTokenizer(Reader in, boolean die) throws IOException, MalformedHtmlException {
 		if (in == null) throw new NullPointerException("in mustn't be null!");
-		INPUT = in;
-		DIE = die;
-		QUEUE = new LinkedList<>();
+		input = in;
+		this.die = die;
+		queue = new LinkedList<>();
+		tokenize();
 	}
 
+	/**
+	 * Checks if there are any Tokens left.
+	 * @return True, if end of stream has not yet been reached or there's still Tokens left to be emitted.
+	 */
 	public boolean hasNext(){
-		return !QUEUE.isEmpty() || !end;
+		return !queue.isEmpty() || !end;
 	}
 
-	public HtmlToken next() throws IOException{
-		if(!QUEUE.isEmpty()){
-			return QUEUE.pop();
-		}else if(end){
+	/**
+	 * 
+	 * @return
+	 * @throws IOException if reading the input stream fails for whatever reason
+	 * @throws MalformedHtmlException if the {@link #die} flag is set and the initialization fails due to malformed HTML
+	 */
+	public HtmlToken next() throws IOException, MalformedHtmlException {
+		if(!hasNext()){
 			return HtmlEofToken.EOF;
 		}else{
-			tokenize();
-			if(!QUEUE.isEmpty()){
-				return QUEUE.pop();
-			}else{
-				return HtmlEofToken.EOF;
-			}
+			if (!end) tokenize();
+			assert !queue.isEmpty() : "ERROR: #hasNext() returned true yet there is NOTHING in the queue!";
+			return queue.remove();
 		}
 	}
 	
 	//=============================
 	
-	private void tokenize() throws IOException{
+	/**
+	 * Processes the input stream 'till it constructs a Token which can be emitted.
+	 * @throws IOException if reading the input stream fails for whatever reason
+	 * @throws MalformedHtmlException if the {@link #die} flag is set and the initialization fails due to malformed HTML
+	 */
+	private void tokenize() throws IOException, MalformedHtmlException {
 		while(true){
 			boolean nop = false;
 			switch(state){
@@ -134,7 +166,7 @@ public class HtmlTokenizer {
 					read();
 					switch(current){
 						case '&': 
-							for (char c:readCharRef('\0')) emit(c);
+							for (char c:readEntity('\0')) emit(c);
 							break;
 							
 						case '<': 
@@ -142,7 +174,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit(current);
 							return;
 							
@@ -162,7 +194,7 @@ public class HtmlTokenizer {
 					read();
 					switch(current){
 						case '&': 
-							for (char c:readCharRef('\0')) emit(c);
+							for (char c:readEntity('\0')) emit(c);
 							break;
 							
 						case '<': 
@@ -170,7 +202,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
@@ -194,7 +226,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
@@ -218,7 +250,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
@@ -238,7 +270,7 @@ public class HtmlTokenizer {
 					read();
 					switch(current){
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
@@ -266,7 +298,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '?':
-							err();
+							err("XML declaration opening inside HTML document: \"<?\"");
 							state = BOGUS_COMMENT;
 							break;
 							
@@ -276,7 +308,7 @@ public class HtmlTokenizer {
 								tagName.append(lower(current));
 								state = TAG_NAME;
 							}else{
-								err();
+								err("Illegal character after \'<\'");
 								emit('<');
 								re = true;
 								state = DATA;
@@ -292,12 +324,12 @@ public class HtmlTokenizer {
 					read();
 					switch(current){
 						case '>':
-							err();
+							err("Invalid end tag: \"</>\"");
 							state = DATA;
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside an end tag");
 							emit('<'); 
 							emit('/');
 							re = true;
@@ -310,7 +342,7 @@ public class HtmlTokenizer {
 								tagName.append(lower(current));
 								state = TAG_NAME;
 							}else{
-								err();
+								err("Invalid end tag: \"</"+current+"\"");
 								state = BOGUS_COMMENT;
 							}
 							break;
@@ -339,12 +371,12 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							tagName.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside a tag");
 							re = true;
 							state = DATA;
 							break;
@@ -661,12 +693,12 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -692,13 +724,13 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							state = SCRIPT_ESCAPED;
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -730,13 +762,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							state = SCRIPT_ESCAPED;
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -885,12 +917,12 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -917,13 +949,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							state = SCRIPT_DOUBLE_ESCAPED;
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -955,13 +987,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emit('\uFFFD');
 							state = SCRIPT_DOUBLE_ESCAPED;
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside script");
 							re = true;
 							state = DATA;
 							break;
@@ -1045,14 +1077,14 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							newAttr();
 							attrName.append('\uFFFD');
 							state = ATTRIBUTE_NAME;
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							re = true;
 							state = DATA;
 							break;
@@ -1061,7 +1093,7 @@ public class HtmlTokenizer {
 						case '\'':
 						case '<': 
 						case '=':
-							err();
+							err("Illegal character inside attribute name: \'"+current+'\'');
 						default:
 							newAttr();
 							if(isUpperAscii(current)){
@@ -1102,12 +1134,12 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							attrName.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							re = true;
 							state = DATA;
@@ -1116,7 +1148,7 @@ public class HtmlTokenizer {
 						case '\"':
 						case '\'':
 						case '<': 
-							err();
+							err("Illegal character inside attribute name: \'"+current+'\'');
 						default:
 							if(isUpperAscii(current)){
 								attrName.append(lower(current));
@@ -1155,7 +1187,7 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							emitAttr();
 							newAttr();
 							attrName.append('\uFFFD');
@@ -1163,7 +1195,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							re = true;
 							state = DATA;
@@ -1172,7 +1204,7 @@ public class HtmlTokenizer {
 						case '\"':
 						case '\'':
 						case '<': 
-							err();
+							err("Illegal character inside attribute name: \'"+current+'\'');
 						default:
 							newAttr();
 							if(isUpperAscii(current)){
@@ -1211,20 +1243,20 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							attrValue.append('\uFFFD');
 							state = ATTRIBUTE_VALUE_UNQUOTED;
 							break;
 							
 						case '>':
-							err();
+							err("Illegal attribute: end of tag after \'=\'");
 							emitAttr();
 							emitTag(false);
 							state = DATA;
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							state = DATA;
 							re = true;
@@ -1233,7 +1265,7 @@ public class HtmlTokenizer {
 						case '<': 
 						case '=':
 						case '`':
-							err();
+							err("Illegal character inside attribute value: \'"+current+'\'');
 						default:
 							attrValue.append((char)current);
 							state = ATTRIBUTE_VALUE_UNQUOTED;
@@ -1251,16 +1283,16 @@ public class HtmlTokenizer {
 							break;
 							
 						case '&': 
-							attrValue.append(readCharRef('\"'));
+							attrValue.append(readEntity('\"'));
 							break;
 			
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							attrValue.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							state = DATA;
 							re = true;
@@ -1282,16 +1314,16 @@ public class HtmlTokenizer {
 							break;
 							
 						case '&': 
-							attrValue.append(readCharRef('\''));
+							attrValue.append(readEntity('\''));
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							attrValue.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							re = true;
 							state = DATA;
@@ -1317,7 +1349,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '&': 
-							attrValue.append(readCharRef('>'));
+							attrValue.append(readEntity('>'));
 							break;
 							
 						case '>':
@@ -1327,12 +1359,12 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							attrValue.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							emitAttr();
 							state = DATA;
 							re = true;
@@ -1343,7 +1375,7 @@ public class HtmlTokenizer {
 						case '<': 
 						case '=':
 						case '`':
-							err();
+							err("Illegal character inside attribute value: \'"+current+'\'');
 						default:
 							attrValue.append((char)current);
 							break;
@@ -1373,13 +1405,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside tag");
 							re = true;
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Null character inside HTML document");
 							re = true;
 							state = BEFORE_ATTRIBUTE_NAME;
 							break;
@@ -1397,13 +1429,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached at the end of a tag");
 							re = true;
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Illegal character at end of tag: \'"+current+'\'');
 							re = true;
 							state = BEFORE_ATTRIBUTE_NAME;
 							break;
@@ -1487,7 +1519,7 @@ public class HtmlTokenizer {
 					//We did not find "--"/"DOCTYPE"/"[CDATA[" and/or 
 					//We encountered an EOF while reading in,
 					//So: ERROR!
-					err();
+					err("Non - comment/DOCTYPE/CDATA tag opened with \"<!\"");
 					state = BOGUS_COMMENT;
 					break;
 	
@@ -1501,15 +1533,16 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append('\uFFFD');
 							state = COMMENT;
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside comment");
 						case '>':
-							err();
+							err("Illegal comment: \"<!-->\"");
 							emitComment();
 							state = DATA;
 							return;
@@ -1531,15 +1564,16 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append("-\uFFFD");
 							state = COMMENT;
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside comment");
 						case '>':
-							err();
+							err("Illegal comment: \"<!--->\"");
 							emitComment();
 							state = DATA;
 							return;
@@ -1561,12 +1595,12 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside comment");
 							emitComment();
 							re = true;
 							state = DATA;
@@ -1588,13 +1622,13 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append("-\uFFFD");
 							state = COMMENT;
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside comment");
 							state = DATA;
 							emitComment();
 							re = true;
@@ -1618,30 +1652,30 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append("--\uFFFD");
 							state = COMMENT;
 							break;
 							
 						case '!':
-							err();
+							err("Illegal string inside comment: \"--!\"");
 							state = COMMENT_END_BANG;
 							break;
 							
 						case '-':
-							err();
+							err("Illegal string inside comment: \"---\"");
 							comment.append('-');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside comment");
 							emitComment();
 							re = true;
 							state = DATA;
 							return;
 							
 						default:
-							err();
+							err("Illegal string inside comment: \"--\"");
 							comment.append("--"+(char)current);
 							state = COMMENT;
 							break;
@@ -1664,13 +1698,13 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							comment.append("--!\uFFFD");
 							state = COMMENT;
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside comment");
 							emitComment();
 							re = true;
 							state = DATA;
@@ -1696,7 +1730,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							newDoc();
 							docForceQuirks = true;
 							emitDoc();
@@ -1705,7 +1739,7 @@ public class HtmlTokenizer {
 							return;
 							
 						default:
-							err();
+							err("Illegal character inside Doctype: \'"+current+'\'');
 							re = true;
 							state = BEFORE_DOCTYPE_NAME;
 							break;
@@ -1725,7 +1759,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							newDoc();
 							docName.append('\uFFFD');
 							state = DOCTYPE_NAME;
@@ -1733,8 +1767,9 @@ public class HtmlTokenizer {
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("Illegal Doctype: \"<!DOCTYPE>\"");
 							newDoc();
 							docForceQuirks = true;
 							emitDoc();
@@ -1771,12 +1806,12 @@ public class HtmlTokenizer {
 							return;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							docName.append('\uFFFD');
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							docForceQuirks = true;
 							emitDoc();
 							re = true;
@@ -1811,7 +1846,7 @@ public class HtmlTokenizer {
 							return;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							docForceQuirks = true;
 							emitDoc();
 							re = true;
@@ -1858,7 +1893,7 @@ public class HtmlTokenizer {
 							//We did not find "PUBLIC"/"SYSTEM" and/or 
 							//We encountered an EOF while reading in,
 							//So: ERROR!
-							err();
+							err("Illegal content inside Doctype");
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -1878,28 +1913,29 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\"':
-							err();
+							err("No whitespace after Doctype PUBLIC keyword");
 							docPublic.setLength(0); 
 							state = DOCTYPE_PUBLIC_IDENTIFIER_DOUBLE_QUOTED;
 							break;
 							
 						case '\'':
-							err();
+							err("No whitespace after Doctype PUBLIC keyword");
 							docPublic.setLength(0); 
 							state = DOCTYPE_PUBLIC_IDENTIFIER_SINGLE_QUOTED;
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("End of Doctype after PUBLIC keyword");
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Illegal character after Doctype PUBLIC keyword: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -1930,15 +1966,16 @@ public class HtmlTokenizer {
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("End of Doctype after PUBLIC keyword");
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Illegal character after Doctype PUBLIC keyword: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -1955,14 +1992,15 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							docPublic.append('\uFFFD');
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("Illegal character inside Doctype PUBLIC identifier: \'"+current+'\'');
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
@@ -1984,14 +2022,14 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							docPublic.append('\uFFFD');
 							break;
 	
 						case EOF:
 							re = true;
 						case '>':
-							err();
+							err("Illegal character inside Doctype PUBLIC identifier: \'"+current+'\'');
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
@@ -2021,19 +2059,19 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\"':
-							err();
+							err("Illegal character after Doctype PUBLIC identifier: \'"+current+'\'');
 							docSystem.setLength(0);
 							state = DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED;
 							break;
 							
 						case '\'':
-							err();
+							err("Illegal character after Doctype PUBLIC identifier: \'"+current+'\'');
 							docSystem.setLength(0);
 							state = DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED;
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							docForceQuirks = true;
 							emitDoc();
 							re = true;
@@ -2041,7 +2079,7 @@ public class HtmlTokenizer {
 							break;
 							
 						default:
-							err();
+							err("Illegal character inside Doctype: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -2076,7 +2114,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							docForceQuirks = true;
 							emitDoc();
 							re = true;
@@ -2084,7 +2122,7 @@ public class HtmlTokenizer {
 							break;
 							
 						default:
-							err();
+							err("Illegal character inside Doctype: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -2104,28 +2142,29 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\"':
-							err();
+							err("No whitespace after Doctype SYSTEM keyword");
 							docSystem.setLength(0); 
 							state = DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED;
 							break;
 							
 						case '\'':
-							err();
+							err("No whitespace after Doctype SYSTEM keyword");
 							docSystem.setLength(0); 
 							state = DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED;
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("End of Doctype after SYSTEM keyword");
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Illegal character after Doctype SYSTEM keyword: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -2156,15 +2195,16 @@ public class HtmlTokenizer {
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("End of Doctype after SYSTEM keyword");
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
 							break;
 							
 						default:
-							err();
+							err("Illegal character after Doctype SYSTEM keyword: \'"+current+'\'');
 							docForceQuirks = true;
 							state = BOGUS_DOCTYPE;
 							break;
@@ -2181,14 +2221,15 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							docSystem.append('\uFFFD');
 							break;
 	
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("Illegal character inside Doctype SYSTEM identifier: \'"+current+'\'');
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
@@ -2210,14 +2251,15 @@ public class HtmlTokenizer {
 							break;
 							
 						case '\0':
-							err();
+							err("Null character inside HTML document");
 							docSystem.append('\uFFFD');
 							break;
 							
 						case EOF:
 							re = true;
+							err("End of stream reached inside Doctype");
 						case '>':
-							err();
+							err("Illegal character inside Doctype SYSTEM identifier: \'"+current+'\'');
 							docForceQuirks = true;
 							emitDoc();
 							state = DATA;
@@ -2247,7 +2289,7 @@ public class HtmlTokenizer {
 							break;
 							
 						case EOF:
-							err();
+							err("End of stream reached inside Doctype");
 							docForceQuirks = true;
 							emitDoc();
 							re = true;
@@ -2255,7 +2297,7 @@ public class HtmlTokenizer {
 							break;
 							
 						default:
-							err();
+							err("Illegal character after Doctype SYSTEM identifier: \'"+current+'\'');
 							state = BOGUS_DOCTYPE;
 							break;
 					}
@@ -2318,7 +2360,14 @@ public class HtmlTokenizer {
 	//~~
 	
 
-	private char[] readCharRef(char additional) throws IOException{
+	/**
+	 * Tries to read in an HTML entity, and returns either it's value, or ['&'] if it is not an entity.
+	 * @param additional - additional break character
+	 * @return The value of the entity, or ['&'].
+	 * @throws IOException if reading the input stream fails for whatever reason
+	 * @throws MalformedHtmlException if the {@link #die} flag is set and the entitiy is malformed/illegal
+	 */
+	private char[] readEntity(char additional) throws IOException, MalformedHtmlException{
 		//return value if this is not a character reference!
 		final char[] NOP = new char[]{'&'};
 		read();
@@ -2352,7 +2401,7 @@ public class HtmlTokenizer {
 				
 				//Error: did not find any numbers
 				if(raw.length() == 0){
-					err();
+					err("Invalid numerical character reference: \"&#"+current+"\"...");
 					if (current != EOF) unConsume((char)current);
 					unConsume('#');
 					return NOP;
@@ -2360,7 +2409,7 @@ public class HtmlTokenizer {
 				
 				//Error: no closing ';'
 				if(current != ';'){
-					err();
+					err("Unclosed numerical character reference.");
 					if (current != EOF) unConsume((char)current);
 					for(int i=raw.length()-1; i>=0; i--){
 						unConsume(raw.charAt(i));
@@ -2393,16 +2442,19 @@ public class HtmlTokenizer {
 					case 0x9E: ret = '\u017E'; break; case 0x9F: ret = '\u0178'; break;
 				}
 				if(ret != '\0'){
-					err();
+					err("Numerical character reference to an illegal character");
 					return new char[]{ret};
-				}else if (code > Character.MAX_VALUE || (0xD800<=code && code<0xDFFF)){
-					err();
+				}else if (code > Character.MAX_VALUE){
+					err("Numerical character reference is out of range");
+					return new char[]{'\uFFFD'};
+				}else if(0xD800<=code && code<0xDFFF){
+					err("Numerical character reference between 0xD800 and 0xDFFF");
 					return new char[]{'\uFFFD'};
 				}else{
 					if (code==0x000B || code==0xFFFE || code==0xFFFF || 0x0001<=code&&code<=0x0008
 								|| 0x0001<=code&&code<=0x0008 || 0x000E<=code&&code<=0x001F 
 								|| 0x007F<=code&&code<=0x009F || 0xFDD0<=code&&code<=0xFDEF){
-						err();
+						err("Numerical character reference to an illegal character");
 					}
 					return new char[]{(char)code};
 				}
@@ -2442,7 +2494,7 @@ public class HtmlTokenizer {
 							String ref = new String(proto, 0, n);
 							String repl = HTML_ENTITIES.get(ref);
 							if(repl == null){
-								err();
+								err("Unknown named entity: \""+ref+'\"');
 								return new char[]{};
 							}else{
 								return repl.toCharArray();
@@ -2463,26 +2515,45 @@ public class HtmlTokenizer {
 	//~~
 	
 
+	/**
+	 * Emits a Character Token.
+	 * @param c - value of the Token
+	 */
 	private void emit(int c){
 		if(c == -1){
 			end = true;
 		}else if(c >= 0){
-			QUEUE.push(new HtmlCharToken((char)c));
+			emit(new HtmlCharToken((char)c));
 		}else{
 			throw new IllegalArgumentException(c+" out of range!");
 		}
 	}
 	
+	/**
+	 * Emits a Token.
+	 * @param t - Token to emit
+	 */
+	private void emit(HtmlToken t){
+		queue.add(t);
+	}
 	
 	//~~
 	
 	
+	/**
+	 * Initializes a new Tag Token (resets {@link #tagName} and {@link #attributes}).
+	 * @param isEndTag - true, if this is an end tag.
+	 */
 	private void newTag(boolean isEndTag){
 		endTag = isEndTag;
 		tagName.setLength(0);
 		attributes = new HashSet<>();
 	}
 
+	/**
+	 * Emits the current Tag Token.
+	 * @param isSelfClosing - true, if this is a self closing tag.
+	 */
 	private void emitTag(boolean isSelfClosing){
 		String name = tagName.toString();
 		
@@ -2494,19 +2565,27 @@ public class HtmlTokenizer {
 		}
 		
 		//Push the fresh Tag Token!
-		QUEUE.push(new HtmlTagToken(name, attrs, endTag, isSelfClosing));
+		emit(new HtmlTagToken(name, attrs, endTag, isSelfClosing));
 		if (!endTag) lastOpenTag=name;
 	}
 	
+	/**
+	 * Initializes a new Attribute Token (resets {@link #attrName} and {@link #attrValue}).
+	 */
 	private void newAttr(){
 		attrName.setLength(0);
 		attrValue.setLength(0);
 	}
 	
-	private void emitAttr(){
-		Attribute attr = new Attribute(attrName.toString(), attrValue.toString());
+	/**
+	 * Adds the current Attribute Token to the current Tag Token.
+	 * @throws MalformedHtmlException if the {@link #die} flag is set and an Attrubite was already emitted with the same name.
+	 */
+	private void emitAttr() throws MalformedHtmlException{
+		String name = attrName.toString();
+		Attribute attr = new Attribute(name, attrValue.toString());
 		if(attributes.contains(attr)){
-			err();
+			err("The Tag Token already contains a(n) "+name+" attribute.");
 		}else{
 			attributes.add(attr);
 		}
@@ -2516,18 +2595,27 @@ public class HtmlTokenizer {
 	//~~
 	
 	
+	/**
+	 * Initializes a new Comment Token (resets {@link #comment}).
+	 */
 	private void newComment(){
 		comment.setLength(0);
 	}
 
+	/**
+	 * Emits the current Comment Token.
+	 */
 	private void emitComment(){
-		QUEUE.push(new HtmlCommentToken(comment.toString()));
+		emit(new HtmlCommentToken(comment.toString()));
 	}
 	
 	
 	//~~
 	
 	
+	/**
+	 * Initializes a new Doctype Token (resets {@link #docName}, {@link #docPublic}, {@link #docSystem} and {@link #docForceQuirks}).
+	 */
 	private void newDoc(){
 		docName.setLength(0);
 		docPublic.setLength(0);
@@ -2535,8 +2623,11 @@ public class HtmlTokenizer {
 		docForceQuirks = false;
 	}
 
+	/**
+	 * Emits the current Doctype Token.
+	 */
 	private void emitDoc(){
-		QUEUE.push(new HtmlDoctypeToken(
+		emit(new HtmlDoctypeToken(
 				docName.toString(), docPublic.toString(), docSystem.toString(), docForceQuirks
 		));
 	}
@@ -2545,6 +2636,12 @@ public class HtmlTokenizer {
 	//~~
 	
 	
+	/**
+	 * Checks if a StringBuilder's contents equal to a String without calling {@link StringBuilder#toString()}.
+	 * @param sb - the StringBuilder
+	 * @param str - the String
+	 * @return True, if sb.toString().equals(str) would be true, false otherwise.
+	 */
 	private boolean equals(StringBuilder sb, String str){
 		if(sb == null && str != null){
 			return false;
@@ -2566,16 +2663,31 @@ public class HtmlTokenizer {
 	//~~
 	
 	
+	/**
+	 * Checks if the char is an ASCII letter.
+	 * @param c - character to check
+	 * @return True, if the char is an ASCII letter.
+	 */
 	private boolean isAsciiLetter(int c){
 		//if [a-zA-Z]
 		return isLowerAscii(c) || isUpperAscii(c);
 	}
 	
+	/**
+	 * Checks if the char is a lowercase ASCII letter.
+	 * @param c - character to check
+	 * @return True, if the char is a lowercase ASCII letter.
+	 */
 	private boolean isLowerAscii(int c){
 		//if [a-z]
 		return ('a' <= c && c <= 'z');
 	}
 	
+	/**
+	 * Checks if the char is an uppercase ASCII letter.
+	 * @param c - character to check
+	 * @return True, if the char is an uppercase ASCII letter.
+	 */
 	private boolean isUpperAscii(int c){
 		//if [A-Z]
 		return ('A' <= c && c <= 'Z');
@@ -2584,6 +2696,11 @@ public class HtmlTokenizer {
 	//~~
 	
 	
+	/**
+	 * Converts a char to loweracase.
+	 * @param c - character to convert.
+	 * @return The lowercase c
+	 */
 	private char lower(int c){
 		return Character.toLowerCase((char)c);
 	}
@@ -2645,9 +2762,9 @@ public class HtmlTokenizer {
 	
 	
 	/**
-	 * 
-	 * @return
-	 * @throws IOException
+	 * Reads
+	 * @return The next character, or -1 if the end of the stream is reached.
+	 * @throws IOException if reading the input stream fails for whatever reason
 	 */
 	private int read() throws IOException{
 		if(re){
@@ -2659,12 +2776,19 @@ public class HtmlTokenizer {
 				un = false;
 			}
 		}else{
-			current = INPUT.read();
+			current = input.read();
 		}
 		return current;
 	}
-	
-	private void err(){
-		//TODO - what shall I do here? lol
+
+	/**
+	 * Throws a MalformedHtmlException with the message if the die flag is set
+	 * @param message - short description of the cause
+	 * @throws MalformedHtmlException if the {@link #die} flag is set
+	 */
+	private void err(String message) throws MalformedHtmlException{
+		if(die){
+			throw new MalformedHtmlException(message);
+		}
 	}
 }
