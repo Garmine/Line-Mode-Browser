@@ -1,13 +1,18 @@
 package net.garmine.parser.html.tokenizer.tokens;
 
 /**
- * 
+ * The Token which represents HTML attributes.
  * @author Garmine
  */
 public class HtmlAttributeToken extends HtmlToken {
 	private final String name;
 	private final String value;
 	
+	/**
+	 * Constructs a new HTML Attribute token.
+	 * @param name - name of the attribute
+	 * @param value - value of the attribute
+	 */
 	public HtmlAttributeToken(String name, String value){
 		this.name = name;
 		this.value = value;

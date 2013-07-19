@@ -1,8 +1,16 @@
 package net.garmine.parser.html.tokenizer.tokens;
 
+/**
+ * The Token which represents HTML comments.
+ * @author Garmine
+ */
 public class HtmlCommentToken extends HtmlToken {
 	private final String COMMENT;
 	
+	/**
+	 * Constructs a new HTML comment Token
+	 * @param comment - the comment itself
+	 */
 	public HtmlCommentToken(String comment){
 		COMMENT = comment;
 	}

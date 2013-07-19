@@ -1,11 +1,24 @@
 package net.garmine.parser.html.tokenizer.tokens;
 
+/**
+ * The Token which represents HTML Doctypes.
+ * @author Garmine
+ */
 public class HtmlDoctypeToken extends HtmlToken {
 	private final String NAME; 
 	private final String PUBLIC;
 	private final String SYSTEM;
 	private final boolean QUIRKS;
 	
+	/**
+	 * Constructs a new HTML doctype Token.<br>
+	 * Note that either only one of the PUBLIC and SYSTEM 
+	 * identifier will have a value other than "", or none of them.
+	 * @param name - name of the doctype
+	 * @param publik - PUBLIC identifier
+	 * @param system - SYSTEM identifier
+	 * @param forceQuirks - flag if parser shall force quirks
+	 */
 	public HtmlDoctypeToken(String name, String publik, String system, boolean forceQuirks){
 		NAME = name;
 		PUBLIC = publik;

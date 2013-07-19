@@ -2,9 +2,17 @@ package net.garmine.parser.html.tokenizer.tokens;
 
 import net.garmine.parser.html.tokenizer.tokens.HtmlTokenType;
 
+/**
+ * The Token which represents characters.
+ * @author Garmine
+ */
 public class HtmlCharToken extends HtmlToken {
 	private final char CHAR;
 	
+	/**
+	 * Constructs a new HTML character Token
+	 * @param c - value of the Token
+	 */
 	public HtmlCharToken(char c){
 		CHAR = c;
 	}

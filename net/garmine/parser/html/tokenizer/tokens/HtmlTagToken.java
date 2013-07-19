@@ -1,11 +1,22 @@
 package net.garmine.parser.html.tokenizer.tokens;
 
+/**
+ * The Token which represents HTML Tags
+ * @author Garmine
+ */
 public class HtmlTagToken extends HtmlToken {
 	private final String name;
 	private final HtmlAttributeToken[] attrs;
 	private final boolean endTag;
 	private final boolean selfClosing;
 	
+	/**
+	 * Constructs a new HTML tag Token
+	 * @param name - name of the tag
+	 * @param attributes - attributes of the tag
+	 * @param isEndTag - flag if this is an end tag (&lt;/tag&gt;)
+	 * @param isSelfClosing - flag if this is a self closing tag (&lt;tag/&gt;)
+	 */
 	public HtmlTagToken(String name, HtmlAttributeToken[] attributes, boolean isEndTag, boolean isSelfClosing){
 		this.name = name;
 		this.attrs = attributes;
