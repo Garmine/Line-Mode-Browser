@@ -1,5 +1,9 @@
 package net.garmine.parser.html.tokenizer.tokens;
 
+/**
+ * 
+ * @author Garmine
+ */
 public class HtmlAttributeToken extends HtmlToken {
 	private final String name;
 	private final String value;
@@ -9,11 +13,13 @@ public class HtmlAttributeToken extends HtmlToken {
 		this.value = value;
 	}
 	
-	public String getName(){
+	@Override
+	public String getAttrName(){
 		return name;
 	}
 	
-	public String getValue(){
+	@Override
+	public String getAttrValue(){
 		return value;
 	}
 	
@@ -51,5 +57,10 @@ public class HtmlAttributeToken extends HtmlToken {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return getType().toString()+'{'+getName()+'}';
 	}
 }
