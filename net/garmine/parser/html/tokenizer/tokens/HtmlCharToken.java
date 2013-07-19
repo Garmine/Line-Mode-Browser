@@ -40,4 +40,46 @@ public class HtmlCharToken extends HtmlToken {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		char cc = getChar();
+		String c;
+		switch(cc){
+			case '\t':
+				c = "\\t";
+				break;
+			case '\b':
+				c = "\\b";
+				break;
+			case '\n':
+				c = "\\n";
+				break;
+			case '\r':
+				c = "\\r";
+				break;
+			case '\f':
+				c = "\\f";
+				break;
+			case '\'':
+				c = "\\\'";
+				break;
+			case '\"':
+				c = "\\\"";
+				break;
+			case '\\':
+				c = "\\\\";
+				break;
+			case '{':
+				c = "\\{";
+				break;
+			case '}':
+				c = "\\}";
+				break;
+			default:
+				c = ""+cc;
+				break;
+		}
+		return getType().toString()+'{'+c+'}';
+	}
 }

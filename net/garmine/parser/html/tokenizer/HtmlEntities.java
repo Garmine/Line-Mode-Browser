@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("serial")
+/**
+ * A shell for an unmodifiable String->String HashMap which contains all the supported HTML entities.
+ * @author Garmine
+ */
 public class HtmlEntities {
+	/** An unmodifiable Map which provides easy parsing for all of the supported entities. */
 	public static final Map<String, String> HTML_ENTITIES;
 	static{
 		HTML_ENTITIES = Collections.unmodifiableMap(new HashMap<String, String>(){{

@@ -1,6 +1,11 @@
 package net.garmine.parser.html.tokenizer;
 
-public enum HtmlTokenizerState {
+/**
+ * The possible states of the HTML Tokenizer's inner State Machine.
+ * @see HtmlTokenizer
+ * @author Garmine
+ */
+enum HtmlTokenizerState {
 	//===================[ATTRIBUTES]==================//
 	
 	BEFORE_ATTRIBUTE_NAME, 

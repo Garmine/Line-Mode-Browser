@@ -74,4 +74,9 @@ public class HtmlTagToken extends HtmlToken {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return getType().toString()+'{'+getName()+'}';
+	}
 }

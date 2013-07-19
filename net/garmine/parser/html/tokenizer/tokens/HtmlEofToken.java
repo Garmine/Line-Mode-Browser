@@ -23,4 +23,9 @@ public final class HtmlEofToken extends HtmlToken {
 	public boolean equals(Object obj) {
 		return obj == this;
 	}
+
+	@Override
+	public String toString() {
+		return getType().toString();
+	}
 }
