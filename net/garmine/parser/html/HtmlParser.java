@@ -124,7 +124,7 @@ public class HtmlParser {
 						//~~
 						
 					case COMMENT:
-						assert tree.isEmpty() : "Missing HtmlDocument from root";
+						assert !tree.isEmpty() : "Missing HtmlDocument from root";
 						ret =  new HtmlComment(tree.peek(), token.getComment());
 						
 						//~~
@@ -136,15 +136,15 @@ public class HtmlParser {
 						//~~
 						
 					case TAG:
-						assert tree.isEmpty() : "Missing HtmlDocument from root";
+						assert !tree.isEmpty() : "Missing HtmlDocument from root";
 						
 						Class<? extends HtmlElement> elementType = HTML_ELEMENTS.get(token.getName());
 						if(elementType != null){
 							//It's a known element
 							try{
-								Constructor<? extends HtmlElement> constructor = elementType.getConstructor(HtmlElement.class, HtmlAttributeToken[].class);
+								Constructor<? extends HtmlElement> constructor = elementType.getConstructor(HtmlMidNode.class, HtmlAttributeToken[].class);
 								//TODO: implement legal parent/children check
-								HtmlElement element = constructor.newInstance((tree.isEmpty()?null:tree.peek()), token.getAttributes());
+								HtmlElement element = constructor.newInstance(tree.peek(), token.getAttributes());
 								
 								if(!token.isEndTag()){
 									//It's an open tag, we shall return something
@@ -208,7 +208,7 @@ public class HtmlParser {
 	 * @throws MalformedHtmlException - if the {@link #die} flag is set and the text's in an illegal place
 	 */
 	private HtmlText makeText() throws MalformedHtmlException{
-		assert tree.isEmpty() : "Missing HtmlDocument from root";
+		assert !tree.isEmpty() : "Missing HtmlDocument from root";
 		
 		//Construct text and chop trailing whitespaces if necessary
 		String text = chars.toString();
