@@ -1,28 +1,22 @@
 package net.garmine.parser.html.attributes;
 
-import net.garmine.parser.html.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlElement;
 
-public class Contenteditable {
-	public static boolean parse(HtmlElement element, String str){
+public enum Contenteditable {
+	TRUE, FALSE, INHERIT;
+	
+	public static Contenteditable parse(HtmlElement element, String str){
 		switch(str){
 			case "true":
-				return true;
-				
+				return TRUE;
+
+			default: 
 			case "false":
-				return false;
+				return FALSE;
 				
 			case "inherit":
-				if(element.parent != null){
-					return element.parent.contenteditable;
-				}else{
-					return false;
-				}
-				
-			default: 
-				return false;
+				return INHERIT;
 		}
 	}
-
-	private Contenteditable(){}
 }
 

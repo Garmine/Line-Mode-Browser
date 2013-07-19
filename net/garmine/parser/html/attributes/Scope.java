@@ -1,6 +1,6 @@
 package net.garmine.parser.html.attributes;
 
-import net.garmine.parser.html.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlElement;
 
 /*
 col	Specifies that the cell is a header for a column

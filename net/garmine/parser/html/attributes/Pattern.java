@@ -1,6 +1,6 @@
 package net.garmine.parser.html.attributes;
 
-import net.garmine.parser.html.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlElement;
 
 public class Pattern {
 	public static java.util.regex.Pattern parse(HtmlElement element, String str){
