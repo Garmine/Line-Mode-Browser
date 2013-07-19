@@ -1,13 +1,13 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.KEYGEN;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Autofocus;
 import net.garmine.parser.html.attributes.Challenge;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Keytype;
 import net.garmine.parser.html.attributes.Name;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Keygen extends HtmlElement {
@@ -27,8 +27,8 @@ public class Keygen extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "autofocus":
 					autofocus = Autofocus.parse(this, v);
 					break;

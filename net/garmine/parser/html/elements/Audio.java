@@ -1,13 +1,13 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.AUDIO;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Autoplay;
 import net.garmine.parser.html.attributes.Controls;
 import net.garmine.parser.html.attributes.Loop;
 import net.garmine.parser.html.attributes.Muted;
 import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Audio extends HtmlElement {
@@ -27,8 +27,8 @@ public class Audio extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "autoplay":
 					autoplay = Autoplay.parse(this, v);
 					break;

@@ -1,10 +1,10 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.FIELDSET;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Name;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Fieldset extends HtmlElement {
@@ -21,8 +21,8 @@ public class Fieldset extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "disabled":
 					disabled = Disabled.parse(this, v);
 					break;

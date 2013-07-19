@@ -1,9 +1,9 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.INS;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Cite;
 import net.garmine.parser.html.attributes.Datetime;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Ins extends HtmlElement {
@@ -19,8 +19,8 @@ public class Ins extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "cite":
 					cite = Cite.parse(this, v);
 					break;

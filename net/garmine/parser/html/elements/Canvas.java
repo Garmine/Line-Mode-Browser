@@ -1,9 +1,9 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.CANVAS;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Height;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Canvas extends HtmlElement {
@@ -19,8 +19,8 @@ public class Canvas extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "height":
 					height = Height.parse(this, v);
 					break;

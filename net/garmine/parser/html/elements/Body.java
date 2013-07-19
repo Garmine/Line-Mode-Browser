@@ -1,13 +1,13 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.BODY;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Alink;
 import net.garmine.parser.html.attributes.Background;
 import net.garmine.parser.html.attributes.Bgcolor;
 import net.garmine.parser.html.attributes.Link;
 import net.garmine.parser.html.attributes.Text;
 import net.garmine.parser.html.attributes.Vlink;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Body extends HtmlElement {
@@ -27,8 +27,8 @@ public class Body extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "alink":
 					alink = Alink.parse(this, v);
 					break;

@@ -1,9 +1,9 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.UL;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Compact;
 import net.garmine.parser.html.attributes.Type;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Ul extends HtmlElement {
@@ -19,8 +19,8 @@ public class Ul extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "compact":
 					compact = Compact.parse(this, v);
 					break;

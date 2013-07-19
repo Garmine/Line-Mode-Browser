@@ -1,7 +1,6 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.TH;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Abbr;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Axis;
@@ -16,6 +15,7 @@ import net.garmine.parser.html.attributes.Rowspan;
 import net.garmine.parser.html.attributes.Scope;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Th extends HtmlElement {
@@ -43,8 +43,8 @@ public class Th extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "abbr":
 					abbr = Abbr.parse(this, v);
 					break;

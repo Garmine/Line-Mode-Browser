@@ -1,7 +1,7 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.ACRONYM;
-import net.garmine.parser.html.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Acronym extends HtmlElement {

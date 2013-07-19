@@ -1,7 +1,6 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.TABLE;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.attributes.Bgcolor;
 import net.garmine.parser.html.attributes.Border;
@@ -11,6 +10,7 @@ import net.garmine.parser.html.attributes.Frame;
 import net.garmine.parser.html.attributes.Rules;
 import net.garmine.parser.html.attributes.Summary;
 import net.garmine.parser.html.attributes.Width;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Table extends HtmlElement {
@@ -33,8 +33,8 @@ public class Table extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "align":
 					align = Align.parse(this, v);
 					break;

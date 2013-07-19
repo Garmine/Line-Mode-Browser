@@ -1,13 +1,13 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.STRIKE;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Class;
 import net.garmine.parser.html.attributes.Dir;
 import net.garmine.parser.html.attributes.Id;
 import net.garmine.parser.html.attributes.Lang;
 import net.garmine.parser.html.attributes.Style;
 import net.garmine.parser.html.attributes.Title;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Strike extends HtmlElement {
@@ -27,8 +27,8 @@ public class Strike extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "class":
 					clazz = Class.parse(this, v);
 					break;

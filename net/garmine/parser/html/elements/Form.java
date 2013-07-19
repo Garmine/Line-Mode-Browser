@@ -1,7 +1,6 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.FORM;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Accept;
 import net.garmine.parser.html.attributes.Acceptcharset;
 import net.garmine.parser.html.attributes.Action;
@@ -11,6 +10,7 @@ import net.garmine.parser.html.attributes.Method;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Novalidate;
 import net.garmine.parser.html.attributes.Target;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Form extends HtmlElement {
@@ -33,8 +33,8 @@ public class Form extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "accept":
 					accept = Accept.parse(this, v);
 					break;

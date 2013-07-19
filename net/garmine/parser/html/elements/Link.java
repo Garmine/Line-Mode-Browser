@@ -1,7 +1,6 @@
 package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.LINK;
-import net.garmine.parser.html.HtmlElement;
 import net.garmine.parser.html.attributes.Charset;
 import net.garmine.parser.html.attributes.Href;
 import net.garmine.parser.html.attributes.Hreflang;
@@ -10,6 +9,7 @@ import net.garmine.parser.html.attributes.Rel;
 import net.garmine.parser.html.attributes.Sizes;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.attributes.Type;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Link extends HtmlElement {
@@ -31,8 +31,8 @@ public class Link extends HtmlElement {
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
-			String v = attr.getValue();
-			switch(attr.getName()){
+			String v = attr.getAttrValue();
+			switch(attr.getAttrName()){
 				case "charset":
 					charset = Charset.parse(this, v);
 					break;
