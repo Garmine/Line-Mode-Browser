@@ -13,6 +13,7 @@ import net.garmine.parser.html.attributes.Required;
 import net.garmine.parser.html.attributes.Rows;
 import net.garmine.parser.html.attributes.Wrap;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Textarea extends HtmlElement {
@@ -33,7 +34,7 @@ public class Textarea extends HtmlElement {
 		return TEXTAREA;
 	}
 
-	public Textarea(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Textarea(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

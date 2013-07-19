@@ -13,6 +13,7 @@ import net.garmine.parser.html.attributes.Object;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Applet extends HtmlElement {
@@ -33,7 +34,7 @@ public class Applet extends HtmlElement {
 		return APPLET;
 	}
 
-	public Applet(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Applet(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

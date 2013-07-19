@@ -3,6 +3,7 @@ package net.garmine.parser.html.elements;
 import static net.garmine.parser.html.elements.HtmlElementType.BDO;
 import net.garmine.parser.html.attributes.Dir;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Bdo extends HtmlElement {
@@ -13,7 +14,7 @@ public class Bdo extends HtmlElement {
 		return BDO;
 	}
 
-	public Bdo(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Bdo(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

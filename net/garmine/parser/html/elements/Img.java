@@ -14,6 +14,7 @@ import net.garmine.parser.html.attributes.Usemap;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Img extends HtmlElement {
@@ -35,7 +36,7 @@ public class Img extends HtmlElement {
 		return IMG;
 	}
 
-	public Img(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Img(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -13,6 +13,7 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Button extends HtmlElement {
@@ -33,7 +34,7 @@ public class Button extends HtmlElement {
 		return BUTTON;
 	}
 
-	public Button(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Button(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -5,6 +5,7 @@ import net.garmine.parser.html.attributes.Media;
 import net.garmine.parser.html.attributes.Scoped;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Style extends HtmlElement {
@@ -17,7 +18,7 @@ public class Style extends HtmlElement {
 		return STYLE;
 	}
 
-	public Style(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Style(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

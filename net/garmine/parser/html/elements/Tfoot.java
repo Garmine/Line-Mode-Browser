@@ -6,6 +6,7 @@ import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Tfoot extends HtmlElement {
@@ -19,7 +20,7 @@ public class Tfoot extends HtmlElement {
 		return TFOOT;
 	}
 
-	public Tfoot(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Tfoot(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

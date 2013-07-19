@@ -7,6 +7,7 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srclang;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Track extends HtmlElement {
@@ -21,7 +22,7 @@ public class Track extends HtmlElement {
 		return TRACK;
 	}
 
-	public Track(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Track(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

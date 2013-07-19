@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Rules;
 import net.garmine.parser.html.attributes.Summary;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Table extends HtmlElement {
@@ -29,7 +30,7 @@ public class Table extends HtmlElement {
 		return TABLE;
 	}
 
-	public Table(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Table(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

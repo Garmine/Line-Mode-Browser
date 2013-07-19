@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Link;
 import net.garmine.parser.html.attributes.Text;
 import net.garmine.parser.html.attributes.Vlink;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Body extends HtmlElement {
@@ -23,7 +24,7 @@ public class Body extends HtmlElement {
 		return BODY;
 	}
 
-	public Body(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Body(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

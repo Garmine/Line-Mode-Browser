@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.CITE;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Cite extends HtmlElement {
@@ -11,7 +12,7 @@ public class Cite extends HtmlElement {
 		return CITE;
 	}
 
-	public Cite(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Cite(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

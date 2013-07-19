@@ -19,6 +19,7 @@ import net.garmine.parser.html.attributes.Usemap;
 import net.garmine.parser.html.attributes.Vspace;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Object extends HtmlElement {
@@ -45,7 +46,7 @@ public class Object extends HtmlElement {
 		return OBJECT;
 	}
 
-	public Object(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Object(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

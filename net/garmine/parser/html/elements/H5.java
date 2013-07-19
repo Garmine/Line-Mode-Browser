@@ -3,6 +3,7 @@ package net.garmine.parser.html.elements;
 import static net.garmine.parser.html.elements.HtmlElementType.H5;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class H5 extends HtmlElement {
@@ -13,7 +14,7 @@ public class H5 extends HtmlElement {
 		return H5;
 	}
 
-	public H5(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public H5(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Lang;
 import net.garmine.parser.html.attributes.Style;
 import net.garmine.parser.html.attributes.Title;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Strike extends HtmlElement {
@@ -23,7 +24,7 @@ public class Strike extends HtmlElement {
 		return STRIKE;
 	}
 
-	public Strike(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Strike(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

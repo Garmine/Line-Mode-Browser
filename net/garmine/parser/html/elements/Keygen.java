@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Keytype;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Keygen extends HtmlElement {
@@ -23,7 +24,7 @@ public class Keygen extends HtmlElement {
 		return KEYGEN;
 	}
 
-	public Keygen(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Keygen(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

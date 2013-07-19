@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Span;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Colgroup extends HtmlElement {
@@ -23,7 +24,7 @@ public class Colgroup extends HtmlElement {
 		return COLGROUP;
 	}
 
-	public Colgroup(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Colgroup(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

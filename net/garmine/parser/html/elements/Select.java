@@ -9,6 +9,7 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Required;
 import net.garmine.parser.html.attributes.Size;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Select extends HtmlElement {
@@ -25,7 +26,7 @@ public class Select extends HtmlElement {
 		return SELECT;
 	}
 
-	public Select(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Select(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

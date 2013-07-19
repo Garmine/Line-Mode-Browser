@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.LABEL;
 import net.garmine.parser.html.attributes.For;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Label extends HtmlElement {
@@ -15,7 +16,7 @@ public class Label extends HtmlElement {
 		return LABEL;
 	}
 
-	public Label(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Label(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

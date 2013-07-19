@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Muted;
 import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Audio extends HtmlElement {
@@ -23,7 +24,7 @@ public class Audio extends HtmlElement {
 		return AUDIO;
 	}
 
-	public Audio(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Audio(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

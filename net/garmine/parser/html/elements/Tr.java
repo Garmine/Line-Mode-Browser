@@ -7,6 +7,7 @@ import net.garmine.parser.html.attributes.Char;
 import net.garmine.parser.html.attributes.Charoff;
 import net.garmine.parser.html.attributes.Valign;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Tr extends HtmlElement {
@@ -21,7 +22,7 @@ public class Tr extends HtmlElement {
 		return TR;
 	}
 
-	public Tr(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Tr(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

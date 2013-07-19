@@ -3,6 +3,7 @@ package net.garmine.parser.html.elements;
 import static net.garmine.parser.html.elements.HtmlElementType.LEGEND;
 import net.garmine.parser.html.attributes.Align;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Legend extends HtmlElement {
@@ -13,7 +14,7 @@ public class Legend extends HtmlElement {
 		return LEGEND;
 	}
 
-	public Legend(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Legend(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

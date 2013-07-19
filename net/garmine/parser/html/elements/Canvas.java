@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.CANVAS;
 import net.garmine.parser.html.attributes.Height;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Canvas extends HtmlElement {
@@ -15,7 +16,7 @@ public class Canvas extends HtmlElement {
 		return CANVAS;
 	}
 
-	public Canvas(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Canvas(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

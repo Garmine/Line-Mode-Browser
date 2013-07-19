@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.VAR;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Var extends HtmlElement {
@@ -11,7 +12,7 @@ public class Var extends HtmlElement {
 		return VAR;
 	}
 
-	public Var(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Var(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

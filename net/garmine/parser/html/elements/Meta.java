@@ -7,6 +7,7 @@ import net.garmine.parser.html.attributes.Httpequiv;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Scheme;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Meta extends HtmlElement {
@@ -21,7 +22,7 @@ public class Meta extends HtmlElement {
 		return META;
 	}
 
-	public Meta(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Meta(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

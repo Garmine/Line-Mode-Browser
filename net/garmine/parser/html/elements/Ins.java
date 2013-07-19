@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.INS;
 import net.garmine.parser.html.attributes.Cite;
 import net.garmine.parser.html.attributes.Datetime;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Ins extends HtmlElement {
@@ -15,7 +16,7 @@ public class Ins extends HtmlElement {
 		return INS;
 	}
 
-	public Ins(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Ins(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

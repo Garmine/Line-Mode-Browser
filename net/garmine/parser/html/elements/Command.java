@@ -8,6 +8,7 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Radiogroup;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Command extends HtmlElement {
@@ -23,7 +24,7 @@ public class Command extends HtmlElement {
 		return COMMAND;
 	}
 
-	public Command(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Command(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

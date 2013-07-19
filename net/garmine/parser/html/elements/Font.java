@@ -5,6 +5,7 @@ import net.garmine.parser.html.attributes.Color;
 import net.garmine.parser.html.attributes.Face;
 import net.garmine.parser.html.attributes.Size;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Font extends HtmlElement {
@@ -17,7 +18,7 @@ public class Font extends HtmlElement {
 		return FONT;
 	}
 
-	public Font(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Font(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

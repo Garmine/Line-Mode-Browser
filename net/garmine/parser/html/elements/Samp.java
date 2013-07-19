@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.SAMP;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Samp extends HtmlElement {
@@ -11,7 +12,7 @@ public class Samp extends HtmlElement {
 		return SAMP;
 	}
 
-	public Samp(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Samp(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

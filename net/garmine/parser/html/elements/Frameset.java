@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.FRAMESET;
 import net.garmine.parser.html.attributes.Cols;
 import net.garmine.parser.html.attributes.Rows;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Frameset extends HtmlElement {
@@ -15,7 +16,7 @@ public class Frameset extends HtmlElement {
 		return FRAMESET;
 	}
 
-	public Frameset(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Frameset(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

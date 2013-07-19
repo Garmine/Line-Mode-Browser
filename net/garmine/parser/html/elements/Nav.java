@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.NAV;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Nav extends HtmlElement {
@@ -11,7 +12,7 @@ public class Nav extends HtmlElement {
 		return NAV;
 	}
 
-	public Nav(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Nav(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

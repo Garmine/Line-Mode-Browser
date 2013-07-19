@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.OPTGROUP;
 import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Optgroup extends HtmlElement {
@@ -15,7 +16,7 @@ public class Optgroup extends HtmlElement {
 		return OPTGROUP;
 	}
 
-	public Optgroup(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Optgroup(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

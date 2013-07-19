@@ -10,6 +10,7 @@ import net.garmine.parser.html.attributes.Sizes;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Link extends HtmlElement {
@@ -27,7 +28,7 @@ public class Link extends HtmlElement {
 		return LINK;
 	}
 
-	public Link(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Link(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

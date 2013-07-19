@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.WBR;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Wbr extends HtmlElement {
@@ -11,7 +12,7 @@ public class Wbr extends HtmlElement {
 		return WBR;
 	}
 
-	public Wbr(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Wbr(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

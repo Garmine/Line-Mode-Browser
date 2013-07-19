@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.BASE;
 import net.garmine.parser.html.attributes.Href;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Base extends HtmlElement {
@@ -15,7 +16,7 @@ public class Base extends HtmlElement {
 		return BASE;
 	}
 
-	public Base(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Base(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.NOFRAMES;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Noframes extends HtmlElement {
@@ -11,7 +12,7 @@ public class Noframes extends HtmlElement {
 		return NOFRAMES;
 	}
 
-	public Noframes(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Noframes(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

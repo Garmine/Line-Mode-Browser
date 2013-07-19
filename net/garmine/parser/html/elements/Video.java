@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Preload;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Video extends HtmlElement {
@@ -29,7 +30,7 @@ public class Video extends HtmlElement {
 		return VIDEO;
 	}
 
-	public Video(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Video(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -10,6 +10,7 @@ import net.garmine.parser.html.attributes.Noresize;
 import net.garmine.parser.html.attributes.Scrolling;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Frame extends HtmlElement {
@@ -27,7 +28,7 @@ public class Frame extends HtmlElement {
 		return FRAME;
 	}
 
-	public Frame(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Frame(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

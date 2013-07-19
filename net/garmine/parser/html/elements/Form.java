@@ -11,6 +11,7 @@ import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.attributes.Novalidate;
 import net.garmine.parser.html.attributes.Target;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Form extends HtmlElement {
@@ -29,7 +30,7 @@ public class Form extends HtmlElement {
 		return FORM;
 	}
 
-	public Form(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Form(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

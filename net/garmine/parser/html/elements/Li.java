@@ -4,6 +4,7 @@ import static net.garmine.parser.html.elements.HtmlElementType.LI;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Li extends HtmlElement {
@@ -15,7 +16,7 @@ public class Li extends HtmlElement {
 		return LI;
 	}
 
-	public Li(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Li(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

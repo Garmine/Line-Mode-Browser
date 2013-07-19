@@ -6,6 +6,7 @@ import net.garmine.parser.html.attributes.Noshade;
 import net.garmine.parser.html.attributes.Size;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Hr extends HtmlElement {
@@ -19,7 +20,7 @@ public class Hr extends HtmlElement {
 		return HR;
 	}
 
-	public Hr(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Hr(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -5,6 +5,7 @@ import net.garmine.parser.html.attributes.Disabled;
 import net.garmine.parser.html.attributes.Form;
 import net.garmine.parser.html.attributes.Name;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Fieldset extends HtmlElement {
@@ -17,7 +18,7 @@ public class Fieldset extends HtmlElement {
 		return FIELDSET;
 	}
 
-	public Fieldset(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Fieldset(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -6,6 +6,7 @@ import net.garmine.parser.html.attributes.Label;
 import net.garmine.parser.html.attributes.Selected;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Option extends HtmlElement {
@@ -19,7 +20,7 @@ public class Option extends HtmlElement {
 		return OPTION;
 	}
 
-	public Option(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Option(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -6,6 +6,7 @@ import net.garmine.parser.html.attributes.Reversed;
 import net.garmine.parser.html.attributes.Start;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Ol extends HtmlElement {
@@ -19,7 +20,7 @@ public class Ol extends HtmlElement {
 		return OL;
 	}
 
-	public Ol(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Ol(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

@@ -5,6 +5,7 @@ import net.garmine.parser.html.attributes.Media;
 import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Source extends HtmlElement {
@@ -17,7 +18,7 @@ public class Source extends HtmlElement {
 		return SOURCE;
 	}
 
-	public Source(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Source(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

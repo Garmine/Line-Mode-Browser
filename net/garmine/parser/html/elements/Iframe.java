@@ -15,6 +15,7 @@ import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Srcdoc;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Iframe extends HtmlElement {
@@ -37,7 +38,7 @@ public class Iframe extends HtmlElement {
 		return IFRAME;
 	}
 
-	public Iframe(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Iframe(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

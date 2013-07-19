@@ -6,6 +6,7 @@ import net.garmine.parser.html.attributes.Src;
 import net.garmine.parser.html.attributes.Type;
 import net.garmine.parser.html.attributes.Width;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Embed extends HtmlElement {
@@ -19,7 +20,7 @@ public class Embed extends HtmlElement {
 		return EMBED;
 	}
 
-	public Embed(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Embed(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){

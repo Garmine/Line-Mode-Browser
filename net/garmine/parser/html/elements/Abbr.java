@@ -2,6 +2,7 @@ package net.garmine.parser.html.elements;
 
 import static net.garmine.parser.html.elements.HtmlElementType.ABBR;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Abbr extends HtmlElement {
@@ -11,7 +12,7 @@ public class Abbr extends HtmlElement {
 		return ABBR;
 	}
 
-	public Abbr(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Abbr(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 	}
 }

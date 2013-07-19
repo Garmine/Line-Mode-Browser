@@ -9,6 +9,7 @@ import net.garmine.parser.html.attributes.Min;
 import net.garmine.parser.html.attributes.Optimum;
 import net.garmine.parser.html.attributes.Value;
 import net.garmine.parser.html.nodes.HtmlElement;
+import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.tokenizer.tokens.HtmlAttributeToken;
 
 public class Meter extends HtmlElement {
@@ -25,7 +26,7 @@ public class Meter extends HtmlElement {
 		return METER;
 	}
 
-	public Meter(HtmlElement parent, HtmlAttributeToken[] attrs){
+	public Meter(HtmlMidNode parent, HtmlAttributeToken[] attrs){
 		super(parent, attrs);
 
 		for(HtmlAttributeToken attr:attrs){
