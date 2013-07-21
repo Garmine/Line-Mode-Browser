@@ -2,10 +2,10 @@ package net.garmine.parser.html;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
+import net.garmine.parser.html.elements.HtmlElementType;
 import net.garmine.parser.html.nodes.HtmlComment;
 import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.nodes.HtmlMidNode;
@@ -14,10 +14,10 @@ import net.garmine.parser.html.nodes.HtmlText;
 import net.garmine.parser.html.tokenizer.HtmlTokenizer;
 import net.garmine.parser.html.tokenizer.tokens.*;
 
-import static net.garmine.parser.html.nodes.HtmlElements.HTML_ELEMENTS;
 import static net.garmine.parser.html.tokenizer.tokens.HtmlTokenType.*; 
 import static net.garmine.parser.html.elements.HtmlElementType.*; 
 import static net.garmine.parser.html.nodes.HtmlNodeType.*;
+import static net.garmine.parser.html.nodes.HtmlElements.HTML_ELEMENTS;
 
 /**
  * The class which constructs HTML trees from HTML documents.
@@ -39,7 +39,7 @@ public class HtmlParser {
 	/** Type of the current HTML Token. */
 	private HtmlTokenType type = null;
 	
-	/**  */
+	/** Flag if this is the first call: if it is we shall return the root element (an HtmlDocument) */
 	private boolean first = true;
 	/** Flag if last Character Token was a whitespace character. */
 	private boolean lastCharIsWS = true;
@@ -65,10 +65,19 @@ public class HtmlParser {
 	/**
 	 * Checks if there are any Nodes left.
 	 * @return True, if end of stream has not yet been reached or there's still Nodes left to be emitted.
-	 */
+	 *//*	
+	 * DOES NOT WORK! 
+	 * Reason: 
+	 * 		HtmlTokenizer#hasNext() returns true when it has any character 
+	 * 		left, which includes any whitespace characters, however, the 
+	 * 		Parser WILL NOT return texts which contain ONLY whitespace.
+	 * 		That's why it's possible for HtmlParser#hasNext() to return 
+	 * 		false-positives which is NOT wanted....
+	 * 
 	public boolean hasNext(){
-		return (tmp!=null) || tokenizer.hasNext();
+		return first || (tmp!=null) || tokenizer.hasNext() || (chars.length()>0);
 	}
+	*/
 	
 	/**
 	 * Processes the next Node in the HTML tree.
@@ -102,7 +111,6 @@ public class HtmlParser {
 				//We shall emit an HtmlText instead of processing the next Token
 				tmp = token;
 				ret = makeText();
-				lastCharIsWS = true;
 			}else{
 				//We shall process the next token!
 				switch(type){
@@ -110,8 +118,9 @@ public class HtmlParser {
 						//Texts are released as lots of character tokens:
 						//We shall collect them, and release a single HtmlText Object
 						char c = token.getChar();
+						//TODO: <pre>
 						if(Character.isWhitespace(c)){
-							if(!lastCharIsWS){	//TODO: <pre>
+							if(!lastCharIsWS){
 								chars.append(' ');
 							}
 							lastCharIsWS = true;
@@ -138,40 +147,44 @@ public class HtmlParser {
 					case TAG:
 						assert !tree.isEmpty() : "Missing HtmlDocument from root";
 						
-						Class<? extends HtmlElement> elementType = HTML_ELEMENTS.get(token.getName());
-						if(elementType != null){
+						//Get the type of the Tag Token
+						HtmlElementType et = HTML_ELEMENTS.get(token.getName());
+						if(et != null){
 							//It's a known element
-							try{
-								Constructor<? extends HtmlElement> constructor = elementType.getConstructor(HtmlMidNode.class, HtmlAttributeToken[].class);
-								//TODO: implement legal parent/children check
-								HtmlElement element = constructor.newInstance(tree.peek(), token.getAttributes());
+							if(!token.isEndTag()){
+								//It's an open tag, we shall return something
 								
-								if(!token.isEndTag()){
-									//It's an open tag, we shall return something
-									if(!token.isSelfClosing() || element.getType().hasCloseTag()){
-										//Which has an end tag and is not closed
-										tree.push(element);
-									}
-									//Return element
-									ret = element;
+								//TODO: implement legal parent/children check
+								
+								HtmlElement element;
+								try{
+									element = et.getConstructor().newInstance(tree.peek(), token.getAttributes());
+								}catch(IllegalAccessException | InstantiationException | InvocationTargetException e){
+									//This should never ever happen....
+									assert false : e;
+									//And now wtf?
+									break;
+								}
+								
+								//Can this tag have any children?
+								if(!token.isSelfClosing() && et.hasCloseTag()){
+									tree.push(element);
+								}
+								
+								//Return element
+								ret = element;
+								break;
+							}else{
+								//It's a close tag, we shall return nothing
+								if(et.hasCloseTag() && tree.peek().is(ELEMENT) && tree.peek().asElement().getType() == et){
+									//Tag is closed
+									tree.pop();
+									//Nothing to return, we shall process (yet) another token
 									break;
 								}else{
-									//It's a close tag, we shall return nothing
-									if(tree.peek().is(ELEMENT) && tree.peek().asElement().getType() == element.getType()){
-										//Tag is closed
-										tree.pop();
-										//Nothing to return, we shall process (yet) another token
-										break;
-									}else{
-										err("Invalid close tag");
-										break;
-									}
+									err("Invalid close tag");
+									break;
 								}
-							}catch(NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e){
-								//This should never ever happen....
-								assert false : e.getMessage();
-								//And now wtf?
-								break;
 							}
 						}else{
 							err("Unknown element: \""+token.getName()+'\"');
@@ -196,9 +209,9 @@ public class HtmlParser {
 		}
 
 		//Do we have a text to emit?
-		if (chars.length()!=0) return makeText();
+		if (chars.length()>0) return makeText();
 		
-		//we have run out of tokens yet someone keeps asking for more nodes....
+		//We have run out of tokens yet someone keeps asking for more nodes....
 		return null;
 	}
 	
@@ -209,10 +222,13 @@ public class HtmlParser {
 	 */
 	private HtmlText makeText() throws MalformedHtmlException{
 		assert !tree.isEmpty() : "Missing HtmlDocument from root";
+		assert chars.length()>0 : "Empty buffer";
 		
 		//Construct text and chop trailing whitespaces if necessary
 		String text = chars.toString();
 		chars.setLength(0);
+		lastCharIsWS = true;
+		//Len must be 
 		int len = text.length();
 		if(text.charAt(len-1) == ' '){
 			text = text.substring(0, --len);
