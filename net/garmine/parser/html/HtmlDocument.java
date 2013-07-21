@@ -24,4 +24,8 @@ public class HtmlDocument extends HtmlMidNode {
 		return DOCUMENT;
 	}
 	
+	@Override
+	public HtmlDocument asDocument(){
+		return this;
+	}
 }
