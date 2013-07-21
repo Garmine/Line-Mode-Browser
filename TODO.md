@@ -14,6 +14,8 @@ The laziest solution would be to store everything in a String-String HashMap, ho
 
 HTTP-lib
  * Redesign automatic parsing of incoming data
+ * Redesign HttpURLConnection handling (a bit)
+ * Redesign Cookie handling
 
 HTML-tokenizer
  * Callbacks (e.g. for &lt;meta&gt;'s encoding)
