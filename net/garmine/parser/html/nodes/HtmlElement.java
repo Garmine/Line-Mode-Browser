@@ -148,9 +148,9 @@ public abstract class HtmlElement extends HtmlMidNode {
 					break;
 					
 				default:
-					if(attr.getName().startsWith("data-")){
+					if(attr.getAttrName().startsWith("data-")){
 						if (dataAttr == null) dataAttr = new HashMap<>();
-						dataAttr.put(attr.getName(), v);
+						dataAttr.put(attr.getAttrName(), v);
 					}
 					break;
 			}
