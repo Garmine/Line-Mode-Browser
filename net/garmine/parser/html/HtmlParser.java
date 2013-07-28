@@ -93,8 +93,7 @@ public class HtmlParser {
 		}
 		
 		//Process next token(s)!
-		while(tokenizer.hasNext()){
-			last = type;
+		while(true){
 			HtmlToken token;
 			if(tmp != null){
 				//We still have an unprocessed token!
@@ -103,7 +102,9 @@ public class HtmlParser {
 			}else{
 				//New token yay!
 				token = tokenizer.next();
+				if (token==HtmlEofToken.EOF) break;
 			}
+			last = type;
 			type = token.getType();
 			
 			HtmlNode ret = null;
@@ -153,6 +154,7 @@ public class HtmlParser {
 							//It's a known element
 							if(!token.isEndTag()){
 								//It's an open tag, we shall return something
+								tokenizer.switchTo(et.getTokenizingState());
 								
 								//TODO: implement legal parent/children check
 								
