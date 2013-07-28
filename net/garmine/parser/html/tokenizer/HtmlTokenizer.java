@@ -116,32 +116,60 @@ public class HtmlTokenizer {
 	 * Constructs and initializes a new HTML Tokenizer.
 	 * @param in - input Stream
 	 * @param die - flag if Tokenizer shall die on first error (~strict mode)
-	 * @throws IOException if reading the input stream fails for whatever reason
-	 * @throws MalformedHtmlException if the {@link #die} flag is set and the initialization fails due to malformed HTML
 	 */
-	public HtmlTokenizer(Reader in, boolean die) throws IOException, MalformedHtmlException {
+	public HtmlTokenizer(Reader in, boolean die){
 		if (in == null) throw new NullPointerException("in mustn't be null!");
 		input = in;
 		this.die = die;
 		queue = new LinkedList<>();
-		tokenize();
+		//tokenize();
 	}
 
+	/**
+	 * Switches the HtmlTokenizer to State s unless s==null.<br>
+	 * <br>
+	 * Use with sense!<br>
+	 * E.g.: <code>tokenizer.switchTo(HtmlTokenizerState.SCRIPT);</code> after a &lt;SCRIPT&gt; tag
+	 * @param s - state to switch to
+	 */
+	public void switchTo(HtmlTokenizerState s){
+		if (s!=null) state = s;
+	}
+	
 	/**
 	 * Checks if there are any Tokens left.
 	 * @return True, if end of stream has not yet been reached or there's still Tokens left to be emitted.
 	 */
-	public boolean hasNext(){
+	//REMOVED: so that the HtmlParser will have more direct control over the Tokenization
+	/*public boolean hasNext(){
 		return !queue.isEmpty() || !end;
-	}
+	}*/
 
 	/**
-	 * 
-	 * @return
+	 * Tokenizes and returns the next HtmlToken in the input stream.
+	 * @return The next HtmlToken
 	 * @throws IOException if reading the input stream fails for whatever reason
 	 * @throws MalformedHtmlException if the {@link #die} flag is set and the initialization fails due to malformed HTML
 	 */
 	public HtmlToken next() throws IOException, MalformedHtmlException {
+		if(!queue.isEmpty()){
+			//We still have HtmlTokens to emit
+			return queue.remove();
+		}else if(!end){
+			//We need new HtmlTokens
+			tokenize();
+			if(!queue.isEmpty()){
+				//We have new HtmlTokens to emit
+				return queue.remove();
+			}else{
+				//We've reached the end
+				return HtmlEofToken.EOF;
+			}
+		}else{
+			//We've reached the end
+			return HtmlEofToken.EOF;
+		}
+		/* OLD hasNext() code
 		if(!hasNext()){
 			return HtmlEofToken.EOF;
 		}else{
@@ -149,6 +177,7 @@ public class HtmlTokenizer {
 			assert !queue.isEmpty() : "ERROR: #hasNext() returned true yet there is NOTHING in the queue!";
 			return queue.remove();
 		}
+		*/
 	}
 	
 	//=============================
@@ -266,6 +295,7 @@ public class HtmlTokenizer {
 	
 					//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					
+					/*
 				case PLAINTEXT: 
 					read();
 					switch(current){
@@ -283,6 +313,7 @@ public class HtmlTokenizer {
 							return;
 					}
 					//break;
+					*/
 	
 					//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					
@@ -484,9 +515,9 @@ public class HtmlTokenizer {
 							break;
 							
 						default:
-							state = RAWTEXT;
 							emit('<');
 							re = true;
+							state = RAWTEXT;
 							return;
 					}
 					break;
@@ -512,7 +543,6 @@ public class HtmlTokenizer {
 					//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					
 				case RAWTEXT_END_TAG_NAME: 
-		
 					read();
 					switch(current){
 						case '\t':
