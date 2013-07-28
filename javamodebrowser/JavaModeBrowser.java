@@ -1,7 +1,7 @@
 package javamodebrowser;
 
-import static net.garmine.http.HttpMethod.*;
-import static net.garmine.http.HttpResponseType.*;
+import static net.garmine.http.HttpMethod.GET;
+import static net.garmine.http.HttpResponseType.RAW;
 import static net.garmine.parser.html.nodes.HtmlNodeType.COMMENT;
 import static net.garmine.parser.html.nodes.HtmlNodeType.ELEMENT;
 import static net.garmine.parser.html.nodes.HtmlNodeType.TEXT;
@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 import net.garmine.http.HttpClient;
 import net.garmine.http.HttpRequest;
@@ -83,13 +83,13 @@ public class JavaModeBrowser extends HttpClient implements Runnable{
 				System.out.println( prefix+(end?"`-":"|-")+n.asElement().getType());
 				print(n.asElement(),prefix+(end?"  ":"| "));
 			}else{
-				System.out.print(   prefix+(end?"`-":"|-")+n.getNodeType());
+				System.out.print(   prefix+(end?"`-":"|-"));
 				if(n.is(COMMENT)){
-					System.out.println(": \""+n.asComment().comment.replaceAll("\n", " ")+"\"");
+					System.out.println(n.getNodeType()+": \""+n.asComment().comment.replaceAll("\n", " ")+"\"");
 				}else if(n.is(TEXT)){
-					System.out.println(": \""+n.asText().text+"\"");
+					System.out.println("\""+n.asText().text+"\"");
 				}else{
-					System.out.println();
+					System.out.println(n.getNodeType());
 				}
 			}
 		}
