@@ -49,6 +49,15 @@ public abstract class HtmlElement extends HtmlMidNode {
 	 */
 	public abstract HtmlElementType getType();
 	
+	/**
+	 * Checks if this is an e Element.
+	 * @param e - type to check
+	 * @return True, if is is an e Element.
+	 */
+	public boolean is(HtmlElementType e) {
+		return getType() == e;
+	}
+	
 	/** Stores attributes named "data-*" */
 	private HashMap<String, String> dataAttr;
 	
