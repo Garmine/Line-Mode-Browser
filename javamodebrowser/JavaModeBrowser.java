@@ -5,6 +5,7 @@ import static net.garmine.http.HttpResponseType.RAW;
 import static net.garmine.parser.html.nodes.HtmlNodeType.COMMENT;
 import static net.garmine.parser.html.nodes.HtmlNodeType.ELEMENT;
 import static net.garmine.parser.html.nodes.HtmlNodeType.TEXT;
+import static net.garmine.parser.html.elements.HtmlElementType.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import net.garmine.http.HttpRequest;
 import net.garmine.parser.html.HtmlDocument;
 import net.garmine.parser.html.HtmlParser;
 import net.garmine.parser.html.MalformedHtmlException;
+import net.garmine.parser.html.elements.A;
+import net.garmine.parser.html.nodes.HtmlElement;
 import net.garmine.parser.html.nodes.HtmlMidNode;
 import net.garmine.parser.html.nodes.HtmlNode;
 
@@ -80,7 +83,14 @@ public class JavaModeBrowser extends HttpClient implements Runnable{
 			boolean end = (c==children.size()-1);
 
 			if(n.is(ELEMENT)){
-				System.out.println( prefix+(end?"`-":"|-")+n.asElement().getType());
+				HtmlElement e = n.asElement();
+				System.out.print(prefix+(end?"`-":"|-")+e.getType());
+				if(e.is(A)){
+					String href = ((A)e).href;
+					if(href != null && !href.equals(""))
+					System.out.print(": "+href);
+				}
+				System.out.println();
 				print(n.asElement(),prefix+(end?"  ":"| "));
 			}else{
 				System.out.print(   prefix+(end?"`-":"|-"));
