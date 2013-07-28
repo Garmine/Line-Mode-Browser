@@ -5,7 +5,7 @@ package net.garmine.parser.html.tokenizer;
  * @see HtmlTokenizer
  * @author Garmine
  */
-enum HtmlTokenizerState {
+public enum HtmlTokenizerState {
 	//===================[ATTRIBUTES]==================//
 	
 	BEFORE_ATTRIBUTE_NAME, 
@@ -105,6 +105,6 @@ enum HtmlTokenizerState {
 	//======================[ETC]======================//
 	
 	CDATA_SECTION, 
-	MARKUP_DECL_OPEN, 
-	PLAINTEXT
+	MARKUP_DECL_OPEN 
+	//PLAINTEXT
 }
